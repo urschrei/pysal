@@ -8,7 +8,9 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 import pysal
 import scipy.spatial
 from pysal.common import KDTree
-from pysal.weights import W
+from pysal.weights import W, WSP, WSP2W
+from scipy.spatial import distance_matrix
+import scipy.sparse as sp
 import scipy.stats
 import numpy as np
 from util import isKDTree
@@ -392,6 +394,11 @@ class DistanceBand(W):
 
     ids         : list
                   values to use for keys of the neighbors and weights dicts
+    build_sp    : boolean
+                  True to build sparse distance matrix and false to build dense
+                  distance matrix; significant speed gains may be obtained
+                  dending on the sparsity of the of distance_matrix and
+                  threshold that is applied
 
     Attributes
     ----------
@@ -448,28 +455,36 @@ class DistanceBand(W):
 
     """
 
-    def __init__(self, data, threshold, p=2, alpha=-1.0, binary=True, ids=None):
+    def __init__(self, data, threshold, p=2, alpha=-1.0, binary=True, ids=None,
+            build_sp=False):
         """Casting to floats is a work around for a bug in scipy.spatial.
         See detail in pysal issue #126.
 
         """
-        if isKDTree(data):
-            self.kd = data
-            self.data = self.kd.data
-        else:
-            try:
-                data = np.asarray(data)
-                if data.dtype.kind != 'f':
-                    data = data.astype(float)
-                self.data = data
-                self.kd = KDTree(self.data)
-            except:
-                raise ValueError("Could not make array from data")
-
         self.p = p
         self.threshold = threshold
         self.binary = binary
         self.alpha = alpha
+        self.build_sp = build_sp
+        
+        if isKDTree(data):
+            self.kd = data
+            self.data = self.kd.data
+        else:
+            if self.build_sp:
+                try:
+                    data = np.asarray(data)
+                    if data.dtype.kind != 'f':
+                        data = data.astype(float)
+                        self.data = data
+                        self.kd = KDTree(self.data)
+                except:
+                    raise ValueError("Could not make array from data")        
+            else:
+                self.data = data
+                self.kd = None       
+               
+
         self._band()
         neighbors, weights = self._distance_to_W(ids)
         W.__init__(self, neighbors, weights, ids)
@@ -478,40 +493,30 @@ class DistanceBand(W):
         """Find all pairs within threshold.
 
         """
-        self.dmat = self.kd.sparse_distance_matrix(
-                self.kd, max_distance=self.threshold)
-
+        if self.build_sp:    
+            self.dmat = self.kd.sparse_distance_matrix(
+                    self.kd, max_distance=self.threshold)
+        else:
+            self.dmat = self._spdistance_matrix(self.data, self.data, self.threshold)
+    
     def _distance_to_W(self, ids=None):
-        if ids:
-            ids = np.array(ids)
-        else:
-            ids = np.arange(self.dmat.shape[0])
-        neighbors = dict([(i,[]) for i in ids])
-        weights = dict([(i,[]) for i in ids])
         if self.binary:
-            for key,weight in self.dmat.items():
-                i,j = key
-                if i != j:
-                    if j not in neighbors[i]:
-                        weights[i].append(1)
-                        neighbors[i].append(j)
-                    if i not in neighbors[j]:
-                        weights[j].append(1)
-                        neighbors[j].append(i)
+            self.dmat[self.dmat>0] = 1
+            tempW = WSP2W(WSP(self.dmat))
+            return tempW.neighbors, tempW.weights
 
         else:
-            for key,weight in self.dmat.items():
-                i,j = key
-                if i != j:
-                    if j not in neighbors[i]:
-                        weights[i].append(weight**self.alpha)
-                        neighbors[i].append(j)
-                    if i not in neighbors[j]:
-                        weights[j].append(weight**self.alpha)
-                        neighbors[j].append(i)
-
-        return neighbors, weights
-
+            weighted = self.dmat.power(self.alpha)
+            weighted[weighted==np.inf] = 0
+            tempW = WSP2W(WSP(weighted))
+            return tempW.neighbors, tempW.weights
+          
+    def _spdistance_matrix(self, x,y, threshold=None):
+        dist = distance_matrix(x,y)
+        if threshold is not None:
+            zeros = dist > threshold
+            dist[zeros] = 0
+        return sp.csr_matrix(dist)
 
 def _test():
     import doctest
