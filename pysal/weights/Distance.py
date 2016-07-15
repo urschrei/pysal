@@ -503,14 +503,22 @@ class DistanceBand(W):
         if self.binary:
             self.dmat[self.dmat>0] = 1
             tempW = WSP2W(WSP(self.dmat))
-            return tempW.neighbors, tempW.weights
+            neighbors = tempW.neighbors
+            weight_keys = tempW.weights.keys()
+            weight_vals = tempW.weights.values()
+            weights = dict(zip(weight_keys, map(list, weight_vals)))
+            return neighbors, weights
 
         else:
             weighted = self.dmat.power(self.alpha)
             weighted[weighted==np.inf] = 0
             tempW = WSP2W(WSP(weighted))
-            return tempW.neighbors, tempW.weights
-          
+            neighbors = tempW.neighbors
+            weight_keys = tempW.weights.keys()
+            weight_vals = tempW.weights.values()
+            weights = dict(zip(weight_keys, map(list, weight_vals)))
+            return neighbors, weights
+
     def _spdistance_matrix(self, x,y, threshold=None):
         dist = distance_matrix(x,y)
         if threshold is not None:
