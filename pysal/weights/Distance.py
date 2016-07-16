@@ -484,7 +484,6 @@ class DistanceBand(W):
                 self.data = data
                 self.kd = None       
                
-
         self._band()
         neighbors, weights = self._distance_to_W(ids)
         W.__init__(self, neighbors, weights, ids)
@@ -508,7 +507,6 @@ class DistanceBand(W):
             weight_vals = tempW.weights.values()
             weights = dict(zip(weight_keys, map(list, weight_vals)))
             return neighbors, weights
-
         else:
             weighted = self.dmat.power(self.alpha)
             weighted[weighted==np.inf] = 0
