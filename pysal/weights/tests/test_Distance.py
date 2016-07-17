@@ -2,7 +2,7 @@ import os
 import unittest
 import pysal
 import numpy as np
-from pysal.common import ATOL, RTOL
+import sys
 
 
 class TestDistanceWeights(unittest.TestCase):
@@ -135,9 +135,18 @@ class TestDistanceWeights(unittest.TestCase):
         kd = pysal.cg.kdtree.KDTree(pts, distance_metric='Arc',
                                     radius=pysal.cg.sphere.RADIUS_EARTH_KM)
         w = pysal.DistanceBand(kd, full.max(), binary=False, alpha=1.0)
-        np.testing.assert_allclose(w.sparse.todense(), full, atol=ATOL,
-                rtol=RTOL)
+        np.testing.assert_allclose(w.sparse.todense(), full)
 
+    def test_DistanceBand_dense(self):
+        """ see issue #126 """
+        w = pysal.rook_from_shapefile(
+            pysal.examples.get_path("lattice10x10.shp"))
+        polygons = pysal.open(
+            pysal.examples.get_path("lattice10x10.shp"), "r").read()
+        points1 = [poly.centroid for poly in polygons]
+        w1 = pysal.DistanceBand(points1, 1, build_sp=False)
+        for k in range(w.n):
+            self.assertEqual(w[k], w1[k])
 
 suite = unittest.TestLoader().loadTestsFromTestCase(TestDistanceWeights)
 

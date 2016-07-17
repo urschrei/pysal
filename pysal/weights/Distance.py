@@ -8,6 +8,7 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 import pysal
 import scipy.spatial
 from pysal.common import KDTree
+from pysal.cg.kdtree import Arc_KDTree
 from pysal.weights import W, WSP, WSP2W
 from scipy.spatial import distance_matrix
 import scipy.sparse as sp
@@ -456,7 +457,7 @@ class DistanceBand(W):
     """
 
     def __init__(self, data, threshold, p=2, alpha=-1.0, binary=True, ids=None,
-            build_sp=False):
+            build_sp=True):
         """Casting to floats is a work around for a bug in scipy.spatial.
         See detail in pysal issue #126.
 
@@ -476,14 +477,14 @@ class DistanceBand(W):
                     data = np.asarray(data)
                     if data.dtype.kind != 'f':
                         data = data.astype(float)
-                        self.data = data
-                        self.kd = KDTree(self.data)
+                    self.data = data
+                    self.kd = KDTree(self.data)
                 except:
                     raise ValueError("Could not make array from data")        
             else:
                 self.data = data
                 self.kd = None       
-               
+        print self.kd       
         self._band()
         neighbors, weights = self._distance_to_W(ids)
         W.__init__(self, neighbors, weights, ids)
@@ -496,6 +497,10 @@ class DistanceBand(W):
             self.dmat = self.kd.sparse_distance_matrix(
                     self.kd, max_distance=self.threshold)
         else:
+            if str(self.kd).split('.')[-1][0:10] == 'Arc_KDTree':
+            	raise TypeError('Unable to calculate dense arc distance matrix;'
+            	        ' parameter "build_sp" must be set to True for arc'
+            	        ' distance type weight')
             self.dmat = self._spdistance_matrix(self.data, self.data, self.threshold)
     
     def _distance_to_W(self, ids=None):
