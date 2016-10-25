@@ -287,10 +287,10 @@ module in the python spatial analysis library
     Spatial interaction modeling involves the analysis of flows from an
 origin to a destination, either over physical space (i.e., migration) or
 through abstract space (i.e., telecommunication). Despite being a
-fundamental technique to many geogaphic disciplines, there is relatively
+fundamental technique to many geographic disciplines, there is relatively
 little software available to carry out spatial interaction modeling and
 the analysis of flow data. Therefore, the purpose of this primer is to
-provide an overview of the recently develped spatial interaction
+provide an overview of the recently developed spatial interaction
 modeling (SpInt) module of the python spatial analysis library (PySAL).
 First, the current framework of the module will be highlighted. Next,
 the main functionality of the module will be illustrated using migration
@@ -417,14 +417,14 @@ scaling factor, \(k\), is not included. In fact, there is no scaling
 factor in any of the members of the family of maximum entropy models
 because there is a total trip constrained implied in their derivation
 and subsequently their calibration (Fotheringham \& O'Kelly , 1989).
-Another aside is that in the doubly-constrained maximum entoropy model,
+Another aside is that in the doubly-constrained maximum entropy model,
 the values for \(A_{i}\) and \(B_{j}\) are dependent upon each other and
-may need to be computed iteratively depending on calibration technqiue.
+may need to be computed iteratively depending on calibration technique.
 It is also usually assumed that all locations are both origins and
 destinations (i.e., \(n=m\)) for doubly-constrained models.
 
 Each member of the family of models provides a different system
-strucutre , which can be chosen depedning on the available data or the
+structure , which can be chosen depending on the available data or the
 specific research question at hand. The so-called unconstrained model
 does not conserve the total inflows or outflows during parameter
 estimation. The production-constrained and attraction-constrained models
@@ -527,10 +527,10 @@ as,
 where \(\mu_{i}\) are origin fixed effects and \(\alpha_{i}\) are
 destination fixed effects that achieve the same results as including
 balancing factors. Similar to equation (8b) the exponential function
-distance-decay can be specified in equation (9b, 10-12) by ommiting the
+distance-decay can be specified in equation (9b, 10-12) by ommitting the
 logarithm associated with \(d_{ij}\). Using Poisson regression is more
-representative of flows and satisfies limaitations (1-2) and it also
-alleviates limiations (3-4) since we no longer need to take the
+representative of flows and satisfies limitations (1-2) and it also
+alleviates limitations (3-4) since we no longer need to take the
 logarithm of \(T_{ij}\). Using fixed effects within Poisson regression
 to calibrate the doubly-constrained model also avoids the need for
 iterative computation of the balancing factors that exists in other
@@ -538,7 +538,7 @@ calibration methods (Fotheringham \& O'Kelly, 1989).
 
 Calibration of Poisson regression can be carried out within a
 generalized linear modeling framework (GLM) using iteratively weighted
-least sqaures (IWSL), which converges to the maximum likelihood
+least squares (IWSL), which converges to the maximum likelihood
 estimates for the parameter estimates (Nelder \& Wedderburn, 1972). To
 maintain computational efficiency with increasingly larger spatial
 interaction datasets, SpInt is built upon a custom GLM/IWLS routine that
@@ -556,12 +556,12 @@ calibrated within minutes on a standard macbook pro notebook.
     \subsection{Model fit statistics}\label{model-fit-statistics}
 
     In order to evaluate the fit of spatial interaction models, it has been
-recommended that a variety of statistics be used (Knudesen \&
-Fotheringham, 1986), which is the apporach taken in SpInt. For the
-log-normal regression specifcation, it is popular to utilize the
+recommended that a variety of statistics be used (Knudsen \&
+Fotheringham, 1986), which is the approach taken in SpInt. For the
+log-normal regression specification, it is popular to utilize the
 coefficient of determination (\(R^2\)), though this statistic is not
 available within the GLM framework used by SpInt. In replacement of the
-\(R^2\) statistic, the SpInt framework provides a psuedo \(R^2\) based
+\(R^2\) statistic, the SpInt framework provides a pseudo \(R^2\) based
 on the likelihood function (McFadden, 1974),
 
 \[R^2_{pseudo} = 1 - \frac{\ln \hat{L}(M_{full})}{\ln \hat{L}(M_{Intercept})} \quad(14)\]
@@ -571,18 +571,18 @@ is the model including all explanatory variables of interest, and
 \(M_{Intercept}\) is the model with only an intercept (i.e., no
 covariates). Like the \(R^2\) statistic, the pseudo version is at a
 maximum at a value of 1 with higher values denoting better model fit. To
-acocunt for model complexity, there is also an adjusted version of this
+account for model complexity, there is also an adjusted version of this
 statistic,
 
 \[R^2_{adj-pseudo} = 1 - \frac{\ln \hat{L}(M_{full}) - K}{\ln \hat{L}(M_{Intercept})} \quad(15)\]
 
 where \(K\) is the number of regressors. If model fit does not
-sufficiently improve, then it is possuble for this measure to decrease
+sufficiently improve, then it is possible for this measure to decrease
 as variables are added, signaling that the additional variables do not
-contribute towards a better model fit. Henceforth, these psuedo \(R^2\)
-statistics are reffered to soley as \(R^2\) and adjusted \(R^2\).
+contribute towards a better model fit. Henceforth, these pseudo \(R^2\)
+statistics are referred to solely as \(R^2\) and adjusted \(R^2\).
 Another model fit statistic available in the SpInt module that also
-acocunts for model complexity is the the Akaike information criterion
+accounts for model complexity is the the Akaike information criterion
 (AIC),
 
 \[ AIC = -2\ln \hat{L}(M_{full}) + 2K  \quad(16)\]
@@ -592,25 +592,25 @@ statistic is grounded in information theory, whereby the AIC is an
 asymptotic estimate of the information that is lost by using the full
 model to represent a given theoretical process.
 
-The psuedo \(R^2\) and AIC are designed for model selection, which means
+The pseudo \(R^2\) and AIC are designed for model selection, which means
 they should not be used to compare between different spatial systems.
-One solution to issue is the standardized root mean sqaure error
+One solution to issue is the standardized root mean square error
 (SRMSE),
 
 \[ SRMSE = \frac{\frac{\sqrt{\sum_{i}\sum_{j}(T_{ij} - \hat{T}_{ij})^{2}}}{n*m}}{\frac{\sum_{i}\sum_{j}T_{ij}}{n*m}} \quad(17)\]
 
-where the numberator is the root mean square error of the observed
+where the numerator is the root mean square error of the observed
 flows, \(T_{ij}\), and the flows predicted by the model,
 \(\hat{T}_{ij}\), and the denominator is the mean of the observed flows
-and is responsbile for standardization of the statistic. Here, \(n*m\)
-is the number of origin-destination pairs that constitue system of
+and is responsible for standardization of the statistic. Here, \(n*m\)
+is the number of origin-destination pairs that constitute system of
 flows. A SRMSE value of 0 indicates perfect model fit, while higher
 values indicate decreasing model fit; however, the upper limit of the
 statistic is not necessarily 1 and will depend on the distribution of
 the observed values (Knudsen \& Fotheringham, 1986).
 
 One final fit statistic, a modified Sorensen similarity index (SSI), is
-included within the SpInt module because it has become increasinly
+included within the SpInt module because it has become increasingly
 popular in some spatial interaction literature that deals with
 non-parametric models (Lenormand et al., 2012; Massuci et al., 2012; Yan
 et al., 2013). Using the same symbol definition from the SRMSE, the SSI
@@ -691,11 +691,11 @@ Next, lets format the data into arrays.
 
     The Oi and Dj vectors need not be \(n^2 \times 1\) vectors. In fact,
 they can be \(n^2 \times k\) where \(k\) is the number of variables that
-are either being used to describe origin or desitnation attributes
+are either being used to describe origin or destination attributes
 associated with flows. It should also be noted that intra-zonal flows
 have been excluded (the first line of code above). This is sometimes
-done becasue intra-zonal flows are large compared to inter-zonal flows
-and would therefore heavily influence the model or becasue it is not
+done because intra-zonal flows are large compared to inter-zonal flows
+and would therefore heavily influence the model or because it is not
 possible to adequately define a distance associated with intra-zonal
 flows. Some solutions to these issues have been proposed (Kordi et al.,
 2012; Tsutsumi \& Tamesue, 2012), though for simplicity, intra-zonal
@@ -787,14 +787,14 @@ programming languages, you would use \(n - 1\) binary indicator
 variables in the design matrix to include the fixed effects for all 9
 municipalities in the model. While the non-zero entries in these columns
 of the design matrix indicate which rows are associated with which
-miunicipality, where a row has all zero entries then implicitly refers
+municipality, where a row has all zero entries then implicitly refers
 to the \(n\)th municipality that has been left out. In Spint, this is
 always the first origin or destination for the production-constrained
-and attraction-constrained models. For the doubly-cosntrained model,
+and attraction-constrained models. For the doubly-constrained model,
 both the first origin and the first destination are left out
-(Tiefelsdorf \& Boots, 1995). In terms of interpetting the parameters,
+(Tiefelsdorf \& Boots, 1995). In terms of interpretting the parameters,
 these dropped locations are assumed to be 0. Since the fixed effects
-parameters are interpretted as deviations from the overall intercept,
+parameters are interpreted as deviations from the overall intercept,
 this essentially means the intercept acts as the fixed effect for the
 first origin and/or destination, depending on which constrained model is
 calibrated. Said differently, the fixed effect for the first origin
@@ -959,10 +959,10 @@ diagnostics, and the previously reviewed fit statistics.
 
     Lets take a look at the local distance-decay parameters. The origin,
 destination and distance-decay parameters are indexed sequentially
-throug the design matrix starting with 0 as you move through th origin
+through the design matrix starting with 0 as you move through the origin
 attributes, through to the destination attributes, and finally the
 distance-decay attribute. Therefore, for \(n\) variables, the
-distance-decay parameters are always the \(n-1\)th parameter, in this
+distance-decay parameters are always the $n-1^{th}$ parameter, in this
 case of 3 variables: \textbf{param2}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -1019,7 +1019,7 @@ distance-decay parameters
 stronger distance-decay for the most westerly municipality. Below we can
 see that the model fit in stronger in the north-west but decrease in the
 south-east. Using these patterns, we could then further postulate why
-they arise or how we might be able to imrpove model fit.
+they arise or how we might be able to improve model fit.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
@@ -1040,9 +1040,9 @@ they arise or how we might be able to imrpove model fit.
 
     In addition to all of the feature presented here, there are several
 other tools that exist in SpInt or could be added. First, there are
-dispersion tests avaialbe in the \textbf{dispersion} namespace of the
+dispersion tests available in the \textbf{dispersion} namespace of the
 SpInt module, which can be used to test whether or not the Poisson
-equidispersion asusmpotion is met. That is, that the conditional mean
+equidispersion assumption is met. That is, that the conditional mean
 and variance are equivalent, which can be unrealistic in many scenarios.
 If these tests indicate overdispersion or underdispersion, then it might
 be appropriate to use a Quasi-Poisson model, which relaxes the
@@ -1052,7 +1052,7 @@ are typically larger whenever equidispersion does not hold (Wedderburn,
 1974). The Quasi-Poisson model specification can be carried out by
 setting \textbf{Quasi=True} in any of the spatial interaction model
 classes. Alternatively, it might be more appropriate to change the
-underlying probability model from Poisson to that of negatibe binomial
+underlying probability model from Poisson to that of negative binomial
 or a zero-inflated model. However, this has not yet been implemented in
 SpInt and therefore remains as future work.
 
