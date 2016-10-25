@@ -289,13 +289,13 @@ origin to a destination, either over physical space (i.e., migration) or
 through abstract space (i.e., telecommunication). Despite being a
 fundamental technique to many geographic disciplines, there is relatively
 little software available to carry out spatial interaction modeling and
-the analysis of flow data. Therefore, the purpose of this primer is to
+the analysis of flow data, especially in the realm of free and open source software. Therefore, the purpose of this primer is to
 provide an overview of the recently developed spatial interaction
 modeling (SpInt) module of the python spatial analysis library (PySAL).
 First, the current framework of the module will be highlighted. Next,
 the main functionality of the module will be illustrated using migration
 flows with a dataset previously used for spatial interaction modeling
-tutorials in the R programming environment. Finally, some future
+tutorials in the R programming environment (Dennett, 2012). Finally, some future
 additions are discussed.
 
     \section{The SpInt framework}\label{the-spint-framework}
@@ -394,10 +394,10 @@ where
   flows
 \item
   \(f(d_{ij})\) = a function of cost or distance, referred to as the
-  distance-decay function. Most commonly this an exponential or power
+  distance-decay function. Most commonly, this is an exponential or power
   function given by,
 \end{itemize}
-
+%
 \[
 \begin{align}
 &Power\\
@@ -407,7 +407,7 @@ where
 &f(d_{ij}) = exp(\beta*d_{ij}) \quad & (7) \\
 \end{align}
 \]
-
+%
 where \(\beta\) is expected to take a negative value. Different
 distance-decay functions assume different responses to the increasing
 costs associated with moving to more distant locations. Of note is that
@@ -424,7 +424,7 @@ It is also usually assumed that all locations are both origins and
 destinations (i.e., \(n=m\)) for doubly-constrained models.
 
 Each member of the family of models provides a different system
-structure , which can be chosen depending on the available data or the
+structure, which can be chosen depending on the available data or the
 specific research question at hand. The so-called unconstrained model
 does not conserve the total inflows or outflows during parameter
 estimation. The production-constrained and attraction-constrained models
@@ -446,9 +446,9 @@ model supplying the weakest predictions (Fotheringham \& O'Kelly, 1989).
     \subsection{Calibration framework}\label{calibration-framework}
 
     Spatial interaction models are often calibrated via linear programming,
-nonlinear optimization, or increasingly more often through linear
+nonlinear optimization, or, increasingly more often, through linear
 regression. Given the flexibility and extendability of a regression
-framework it was chosen as the primary model calibration technqiue
+framework it was chosen as the primary model calibration technique
 within the SpInt module. By taking the natural logarithm of both sides
 of a spatial interaction model, say the basic gravity model, is is
 possible to obtain the so-called log-linear or log-normal spatial
@@ -463,7 +463,7 @@ interaction model,
 &\ln{T_{ij}} = k + \mu \ln{V_{i}} + \alpha \ln{W_{j}} - \beta {d_{ij}} + \epsilon \quad &(8b) \\
 \end{align}
 \]
-
+%
 where \(\epsilon\) is a a normally distributed error term with a mean of
 0. The only difference between equations (8a) and (8b) is the functional
 distance-decay specification, which results from plugging either
@@ -486,25 +486,25 @@ log-normal gravity model, which include,
   flows are often not normally distributed;
 \item
   downward biased flow predictions due to producing estimates for the
-  logarithm of flows instead of actual flows
+  logarithm of flows instead of actual flows;
 \item
   zero flows are problematic since the logarithm of zero is undefined.
 \end{enumerate}
 
-Therefore, Flowerdew and Aitkin (1982) propose the Poisson log-linear
-regression specification for the family of spatial interaction models.
+Therefore,  the Poisson log-linear
+regression specification for the family of spatial interaction models was proposed (Flowerdew \& Aitkin, 1982; Flowerdew \& Lovett, 1988).
 This specification assumes that the number of flows between \(i\) and
 \(j\) is drawn from a Poisson distribution with mean,
 \(\lambda_{ij} = T_{ij}\), where \(\lambda_{ij}\) is assumed to be
 logarithmically linked to the linear combination of variables,
 
 \[\ln{\lambda_{ij}} = k + \mu \ln V_{i} + \alpha \ln W_{j} - \beta \ln d_{ij}) \quad (9a)\]
-
+%
 and exponentiating both sides of the equation yields the unconstrained
 Poisson log-linear gravity model,
 
 \[T_{ij} = \exp(k + \mu \ln V_{i} + \alpha \ln W_{j} - \beta \ln d_{ij}) \quad (9b) \]
-
+%
 where equations (9a) and (9b) refer to the unconstrained model with a
 power function distance-decay. As previously mentioned, using fixed
 effects for the balancing in equations (3-5) factors, the constrained
@@ -523,11 +523,11 @@ as,
 &T_{ij} = \exp(k + \mu_{i} + \alpha_{j} - \beta \ln d_{ij}) \quad & (12) \\
 \end{align}
 \]
-
+%
 where \(\mu_{i}\) are origin fixed effects and \(\alpha_{i}\) are
 destination fixed effects that achieve the same results as including
-balancing factors. Similar to equation (8b) the exponential function
-distance-decay can be specified in equation (9b, 10-12) by ommitting the
+balancing factors (Tiefelsdorf \& Boots, 1995). Notice that $k$ is the estimated intercept and must be included in these log-linear models (equation 8-12) to ensure the total number of flows is conserved despite not being included in the maximum entropy models where such conservation is implied. Similar to equation (8b) the exponential function
+distance-decay can be specified in equation (9b, 10-12) by omitting the
 logarithm associated with \(d_{ij}\). Using Poisson regression is more
 representative of flows and satisfies limitations (1-2) and it also
 alleviates limitations (3-4) since we no longer need to take the
@@ -563,9 +563,9 @@ coefficient of determination (\(R^2\)), though this statistic is not
 available within the GLM framework used by SpInt. In replacement of the
 \(R^2\) statistic, the SpInt framework provides a pseudo \(R^2\) based
 on the likelihood function (McFadden, 1974),
-
-\[R^2_{pseudo} = 1 - \frac{\ln \hat{L}(M_{full})}{\ln \hat{L}(M_{Intercept})} \quad(14)\]
-
+%
+\[R^2_{pseudo} = 1 - \frac{\ln \hat{L}(M_{full})}{\ln \hat{L}(M_{Intercept})} \quad(13)\]
+%
 where \(\hat{L}\) is the likelihood of an estimated model, \(M_{full}\)
 is the model including all explanatory variables of interest, and
 \(M_{Intercept}\) is the model with only an intercept (i.e., no
@@ -573,9 +573,9 @@ covariates). Like the \(R^2\) statistic, the pseudo version is at a
 maximum at a value of 1 with higher values denoting better model fit. To
 account for model complexity, there is also an adjusted version of this
 statistic,
-
-\[R^2_{adj-pseudo} = 1 - \frac{\ln \hat{L}(M_{full}) - K}{\ln \hat{L}(M_{Intercept})} \quad(15)\]
-
+%
+\[R^2_{adj-pseudo} = 1 - \frac{\ln \hat{L}(M_{full}) - K}{\ln \hat{L}(M_{Intercept})} \quad(14)\]
+%
 where \(K\) is the number of regressors. If model fit does not
 sufficiently improve, then it is possible for this measure to decrease
 as variables are added, signaling that the additional variables do not
@@ -584,26 +584,26 @@ statistics are referred to solely as \(R^2\) and adjusted \(R^2\).
 Another model fit statistic available in the SpInt module that also
 accounts for model complexity is the the Akaike information criterion
 (AIC),
-
-\[ AIC = -2\ln \hat{L}(M_{full}) + 2K  \quad(16)\]
-
+%
+\[ AIC = -2\ln \hat{L}(M_{full}) + 2K  \quad(15)\]
+%
 where lower AIC values indicate a better model fit (Akaike, 1974). This
 statistic is grounded in information theory, whereby the AIC is an
 asymptotic estimate of the information that is lost by using the full
 model to represent a given theoretical process.
 
-The pseudo \(R^2\) and AIC are designed for model selection, which means
+The \(R^2\) and AIC are designed for model selection, which means
 they should not be used to compare between different spatial systems.
-One solution to issue is the standardized root mean square error
+One solution to this issue is the standardized root mean square error
 (SRMSE),
-
-\[ SRMSE = \frac{\frac{\sqrt{\sum_{i}\sum_{j}(T_{ij} - \hat{T}_{ij})^{2}}}{n*m}}{\frac{\sum_{i}\sum_{j}T_{ij}}{n*m}} \quad(17)\]
-
+%
+\[ SRMSE = \frac{\frac{\sqrt{\sum_{i}\sum_{j}(T_{ij} - \hat{T}_{ij})^{2}}}{n*m}}{\frac{\sum_{i}\sum_{j}T_{ij}}{n*m}} \quad(16)\]
+%
 where the numerator is the root mean square error of the observed
 flows, \(T_{ij}\), and the flows predicted by the model,
 \(\hat{T}_{ij}\), and the denominator is the mean of the observed flows
 and is responsible for standardization of the statistic. Here, \(n*m\)
-is the number of origin-destination pairs that constitute system of
+is the number of origin-destination pairs that constitute the system of
 flows. A SRMSE value of 0 indicates perfect model fit, while higher
 values indicate decreasing model fit; however, the upper limit of the
 statistic is not necessarily 1 and will depend on the distribution of
@@ -615,9 +615,9 @@ popular in some spatial interaction literature that deals with
 non-parametric models (Lenormand et al., 2012; Massuci et al., 2012; Yan
 et al., 2013). Using the same symbol definition from the SRMSE, the SSI
 is defined as,
-
-\[ SSI = \frac{1}{(n*m)} \sum_{i} \sum_{j} \frac{2min(T_{ij}, \hat{T}_{ij})}{T_{ij} + \hat{T}_{ij}} \quad(18)\]
-
+%
+\[ SSI = \frac{1}{(n*m)} \sum_{i} \sum_{j} \frac{2min(T_{ij}, \hat{T}_{ij})}{T_{ij} + \hat{T}_{ij}} \quad(17)\]
+%
 which is bounded between values of 0 and 1 with values closer to 1
 indicating a better model fit.
 
@@ -626,7 +626,7 @@ Austria}\label{an-illustrative-example-migration-in-austria}
 
     \subsection{The data}\label{the-data}
 
-    Despite being a small toy dataset, the following example is utilizes for
+    Despite being a small toy dataset, the following example is utilized for
 consistency since it was previously used to demonstrate spatial
 interaction modeling in the R programming language (Dennett, 2012). The
 data are migration flows between Austrian NUTS level 2 municipalities in
@@ -668,10 +668,10 @@ Populating the interactive namespace from numpy and matplotlib
     { \hspace*{\fill} \\}
     
     The \textbf{Origin} and \textbf{Destination} columns refer to the
-origin, \(i\), and destination, \(j\), location labels, the
-\textbf{Data} column is the number of flows, the \textbf{Oi} and
-\textbf{Dj} columns are the number of total out-flows and total
-in-flows, respectively, and the \textbf{Dij} column is the Euclidian
+labels for origin locations, \(i\), and the labels for destination locations, \(j\),
+the \textbf{Data} column is the number of flows between $i$ and $j$, the \textbf{Oi} and
+\textbf{Dj} columns are the number of total out-flows at $i$ and total
+in-flows at $j$, respectively, and the \textbf{Dij} column is the Euclidian
 distance between the centroids of \(i\) and \(j\). In this case we use
 the total out-flow and total in-flow as variables to describe how
 emissive an origin is and how attractive a destination is. If we want a
@@ -699,12 +699,12 @@ and would therefore heavily influence the model or because it is not
 possible to adequately define a distance associated with intra-zonal
 flows. Some solutions to these issues have been proposed (Kordi et al.,
 2012; Tsutsumi \& Tamesue, 2012), though for simplicity, intra-zonal
-were removed for this example. Therefore
+were removed for this example. 
 
     \subsection{Calibrating the models}\label{calibrating-the-models}
 
-    Now, lets load the main SpInt functions and calibrate some models. The
-main SpInt functions are found within the gravity namespace of the SpInt
+    Now, lets load the main SpInt functionality and calibrate some models. The
+``family'' of spatial interaction models are found within the \textbf{gravity} namespace of the SpInt
 module and the estimated parameters can be accessed via the
 \textbf{params} attribute of a successfully instantiated spatial
 interaction model.
@@ -763,8 +763,8 @@ interaction model.
 [-0.00791533]
 
     \end{Verbatim}
-
-    Note that for the constrained models we have limited the params
+%
+Note that for the above examples the constrained models have been limited the params
 attribute to print only the main model variables (i.e., not fixed
 effects), though it is still possible to access the fixed effect
 parameters too.
@@ -792,13 +792,12 @@ to the \(n\)th municipality that has been left out. In Spint, this is
 always the first origin or destination for the production-constrained
 and attraction-constrained models. For the doubly-constrained model,
 both the first origin and the first destination are left out
-(Tiefelsdorf \& Boots, 1995). In terms of interpretting the parameters,
-these dropped locations are assumed to be 0. Since the fixed effects
-parameters are interpreted as deviations from the overall intercept,
-this essentially means the intercept acts as the fixed effect for the
-first origin and/or destination, depending on which constrained model is
-calibrated. Said differently, the fixed effect for the first origin
-and/or destination serves as the overall intercept.
+(Tiefelsdorf \& Boots, 1995). In terms of interpreting the parameters,
+these dropped locations are assumed to be 0. 
+
+You can also access typical model diagnostics, such as standard errors (\textbf{std\_err}), $t$-values (\textbf{tvalues}), $p$-values (\textbf{pvalues}), and confidence intervals (\tetbf{cont\_int}).
+
+%Since the fixed effects parameters are interpreted as deviations from the overall intercept, this essentially means the intercept acts as the fixed effect for the first origin and/or destination, depending on which constrained model is calibrated. Said differently, the fixed effect for the first origin and/or destination serves as the overall intercept.
 
     \subsection{Interpreting the
 parameters}\label{interpretting-the-parameters}
@@ -814,7 +813,7 @@ explanatory variable.
 
 Recall from the previous section that the exponential distance-decay
 specification results in a model that does not take the logarithm of
-\(d_ij\). Therefore, we can use an unconstrained gravity model with an
+\(d_{ij}\). Therefore, we can use an unconstrained gravity model with an
 exponential distance-decay specification to demonstrate a typical
 interpretation of coefficients from a Poisson regression.
 
@@ -827,26 +826,26 @@ interpretation of coefficients from a Poisson regression.
 [ -8.01822841e+00   8.69316127e-01   8.91445153e-01  -6.22938370e-03]
 
     \end{Verbatim}
-
-    -6.22938370e-03 is the coefficient for the distance variable in the
+%
+-6.22938370e-03 is the coefficient for the distance variable in the
 above example. In Poisson regression, the coefficients are typically
 interpreted as the proportionate change in the predicted response, here
 \(T_{ij}\), if we increase an explanatory variable by 1 unit (Cameron \&
 Trivedi, 2013). Technically, this is expressed as,
-
-\[ \tilde{T}_{ij} = T_{ij}* \exp(\beta) \quad (19)\]
-
+%
+\[ \tilde{T}_{ij} = T_{ij}* \exp(\beta) \quad (18)\]
+%
 where \(\tilde{T}_{ij}\) is the new value of \(T_{ij}\) and \(\beta\) is
 a coefficient, here the one typically associated with distance in a
 Poisson log-linear spatial interaction model with an exponential
 function distance-decay. For this example, this means from a 1 unit
-increase in distance, if our model predicted 2,500 flows, then we can
+increase in distance holding all other factors constant, if our model predicted 2,500 flows, then we can
 expect the number of flows to decrease to approximately 2,484.475. We
 can also identify the percent change expected from a one unit increase
 in distance using,
-
-\[\Delta_{\%} = (1-exp(\beta))*100.0 \quad (20)\]
-
+%
+\[\Delta_{\%} = (1-exp(\beta))*100.0 \quad (19)\]
+%
 which serves as an alternative interpretation of \(\beta\). In this case,
 we could say that from a 1 unit increase in distance we could expect the
 number of predicted flows to decrease by approximately 0.621\%.
@@ -857,14 +856,16 @@ important for Poisson log-linear spatial interaction models because this
 applies to the origin and destination variables when using an
 exponential function of distance-decay and to the origin, destination,
 and distance variables when using a power function of distance-decay. In
-these cases, the interoperation of the coefficients becomes the percent
+these cases, the interpretation of the coefficients becomes the percent
 change in the predicted response, here \(T_{ij}\), if we increase the
 associated explanatory variable by 1\% (Cameron \& Trivedi, 2013). For
 example, 8.91445153e-01 is the coefficient associated with destination
 total in-flows (i.e., attractiveness) in the above example. Then if we
 increase the in-flows to location \(j\) by 1\%, say from \(25,000\) to
-\(25,250\), we can expect the number of flows from \(i\) to \(j\) (i.e.,
-\(T_{ij}\)) to increase from \(2,000\) to \(2,020\).
+\(25,250\), and holding all other factors constant, we can expect the number of flows from \(i\) to \(j\) (i.e.,
+\(T_{ij}\)) to increase from \(2,000\) to \(2,020\).\footnotemark
+
+\footnotetext{This example is only illustrative. Of course, if we increased the total in-flows, this would imply that we are also increasing the total out-flows from somewhere else and therefore the system could not truly be held constant. However, substantive modeling calls for origin and destination variables that are not derived from the interaction matrix. Therefore, this is not an issue in practice.}
 
 Finally, the fixed effects in the constrained models can be interpreted
 such that the mean predicted flows, \(T_{ij}\), are \(e^{\mu_{i}}\)
@@ -876,8 +877,10 @@ location \(i\) (location \(j\)) (Cameron \& Trivedi, 2013), where
 
     We can compare the different model fit statistics across the four types
 of spatial interaction models for this example. Let's process the
-statistics into a tidy table have a look.
-
+statistics into a tidy table and have a look.
+\\
+\\
+\\
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}12}]:} \PY{n}{R2}\PY{p}{,} \PY{n}{adjR2}\PY{p}{,} \PY{n}{SSI}\PY{p}{,} \PY{n}{SRMSE}\PY{p}{,} \PY{n}{AIC} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
          \PY{n}{model\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{att}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doub}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
@@ -910,8 +913,8 @@ statistics into a tidy table have a look.
          att         0.909355  0.909230  15982.313101  0.584048  0.752155
          doub        0.943540  0.943335   9977.159141  0.379286  0.811852
 \end{Verbatim}
-        
-    From this table we can see that all of the fit statistics indicate a
+ %       
+From this table we can see that all of the fit statistics indicate a
 better model fit as constraints are introduced. That is, the weakest
 model fit is consistently related to the gravity model, with similarly
 increased model fit for the production-constrained and
@@ -919,7 +922,7 @@ attraction-constrained models, and finally, the best model fit is
 associated with the doubly constrained model. We can also see that the
 \(R^2\) and adjusted \(R^2\) are very close, since these models have a
 very similar number of explanatory variables, thereby resulting in
-little to no penalization for model complexity.
+little or no penalization for model complexity.
 
 We can also take a look at whether the power or exponential
 distance-decay specification results in a better model fit. For
@@ -937,7 +940,7 @@ SRMSE for exp distance-decay:  0.37928618533
 SRMSE for exp distance-decay:  0.277703139642
 
     \end{Verbatim}
-
+%
     For this example, it looks like the power distance-decay specification
 results in a better model fit.
 
@@ -956,7 +959,7 @@ diagnostics, and the previously reviewed fit statistics.
 {\color{incolor}In [{\color{incolor}14}]:} \PY{n}{gravity} \PY{o}{=} \PY{n}{Gravity}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Oi}\PY{p}{,} \PY{n}{Dj}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{local\PYZus{}gravity} \PY{o}{=} \PY{n}{gravity}\PY{o}{.}\PY{n}{local}\PY{p}{(}\PY{n}{Origin}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{Origin}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
-
+%
     Lets take a look at the local distance-decay parameters. The origin,
 destination and distance-decay parameters are indexed sequentially
 through the design matrix starting with 0 as you move through the origin
@@ -973,7 +976,7 @@ case of 3 variables: \textbf{param2}.
 [-3.4028 -1.3583 -0.8307 -1.1492 -0.4781 -1.0095 -1.6758 -1.2156 -1.5397]
 
     \end{Verbatim}
-
+%
     We can also take a look at the local \(R^2\).
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -984,7 +987,7 @@ case of 3 variables: \textbf{param2}.
 [ 0.9665  0.9894  0.9893  0.5205  0.676   0.7298  0.6333  0.432   0.515 ]
 
     \end{Verbatim}
-
+%
     Both the local distance-decay and the \(R^2\) show some variation. We
 can explore this spatially, by mapping the local values. First, lets
 join the local values to a shapefile and then plot the local
@@ -1014,10 +1017,10 @@ distance-decay parameters
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SpIntPrimer_files/SpIntPrimer_49_1.png}
     \end{center}
     { \hspace*{\fill} \\}
-    
+%   
     Next, lets map the local \(R^2\) values. Above we can see a much
 stronger distance-decay for the most westerly municipality. Below we can
-see that the model fit in stronger in the north-west but decrease in the
+see that the model fit is stronger in the north-west and decreases in the
 south-east. Using these patterns, we could then further postulate why
 they arise or how we might be able to improve model fit.
 
@@ -1038,7 +1041,7 @@ they arise or how we might be able to improve model fit.
     
     \section*{Further functionality}\label{further-functionality}
 
-    In addition to all of the feature presented here, there are several
+    In addition to all of the features presented here, there are several
 other tools that exist in SpInt or could be added. First, there are
 dispersion tests available in the \textbf{dispersion} namespace of the
 SpInt module, which can be used to test whether or not the Poisson
@@ -1050,22 +1053,21 @@ equidispersion assumption of the Poisson model. The resulting parameter
 estimates are equivalent to the Poisson model, but the standard errors
 are typically larger whenever equidispersion does not hold (Wedderburn,
 1974). The Quasi-Poisson model specification can be carried out by
-setting \textbf{Quasi=True} in any of the spatial interaction model
-classes. Alternatively, it might be more appropriate to change the
+setting \textbf{Quasi=True} in any of the spatial interaction models introduced here. Alternatively, it might be more appropriate to change the
 underlying probability model from Poisson to that of negative binomial
 or a zero-inflated model. However, this has not yet been implemented in
 SpInt and therefore remains as future work.
 
-Another area of potential expansion is accommodate several paradigms for
+Another area of potential expansion is to accommodate several paradigms for
 incorporating spatial effects into spatial interaction models, such as
 competing destinations (Fotheringham, 1983), a spatial lag
 autoregressive model (LeSage \& Pace, 2008), or an eigenvector spatial
 filter model (Chun, 2009). These paradigms require code that computes
-additional variables, complex calibration techniques, and specialized
-representations of spatial relationships. While some solutions to the
-later are available in the \textbf{spintW} namespace of the
-\textbf{weights} module of PySAL, there is still much work to be done to
-develop a more robust set of spatial interaction modeling tools.
+additional variables, more complex calibration techniques, and specialized
+representations of spatial relationships. Some solutions to the
+latter are available in the \textbf{spintW} namespace of the
+\textbf{weights} module of PySAL. While there is still much work to be done to
+develop a more robust set of open source spatial interaction modeling tools, SpInt provides a starting point for which to build upon.
 
     \section*{References}\label{references}
 
@@ -1087,6 +1089,8 @@ develop a more robust set of spatial interaction modeling tools.
   Flowerdew, Robin, and Murray Aitkin. 1982. ``A Method of Fitting the
   Gravity Model Based on the Poisson Distribution.'' Journal of Regional
   Science 22 (2): 191--202.
+\item
+Flowerdew, Robin, and Andrew Lovett. 1988. ?Fitting Constrained Poisson Regression Models to Interurban Migration Flows.? Geographical Analysis 20 (4): 297?307. 
 \item
   Fotheringham, A. S. 1983. ``A New Set of Spatial-Interaction Models:
   The Theory of Competing Destinations.'' Environment and Planning A 15
