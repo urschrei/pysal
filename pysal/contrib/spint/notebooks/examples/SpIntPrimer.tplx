@@ -1,0 +1,6 @@
+
+((= This line selects the cell style. =))
+((* set cell_style = 'style_ipython.tplx' *))
+
+((= This line inherits from the built in template that you want to use. =))
+((* extends 'article.tplx' *))

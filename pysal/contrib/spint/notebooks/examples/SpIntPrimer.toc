@@ -1,0 +1,14 @@
+\contentsline {chapter}{\numberline {1}A primer for working with the \textbf {\emph {Sp}}atial \textbf {\emph {Int}}eraction modeling (SpInt) module in the python spatial analysis library (PySAL)}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Introduction}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}The SpInt Framework}{2}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Modeling framework}{2}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Calibration framework}{4}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Model fit statistics}{5}{subsection.1.2.3}
+\contentsline {section}{\numberline {1.3}An Illustrative example: migration in Austria}{6}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}The data}{6}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Calibrating the models}{8}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Interpretting the parameters}{9}{subsection.1.3.3}
+\contentsline {subsection}{\numberline {1.3.4}Assessing model fit}{10}{subsection.1.3.4}
+\contentsline {subsection}{\numberline {1.3.5}Local models}{11}{subsection.1.3.5}
+\contentsline {section}{\numberline {1.4}Further functionality}{13}{section.1.4}
+\contentsline {section}{\numberline {1.5}References}{13}{section.1.5}

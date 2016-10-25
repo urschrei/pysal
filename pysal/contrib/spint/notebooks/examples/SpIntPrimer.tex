@@ -1,7 +1,10 @@
 
-% Default to the notebook output style
 
-    
+
+
+
+
+% Default to the notebook output style
 
 
 % Inherit from the specified cell style.
@@ -140,7 +143,6 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{SpIntPrimer}
     
     
     
@@ -269,21 +271,21 @@
 
     \begin{document}
     
-    
-    \maketitle
-    
-    
-
-    
-    \section{\texorpdfstring{A primer for working with the
+    \title{\texorpdfstring{A primer for working with the
 \textbf{\emph{Sp}}atial \textbf{\emph{Int}}eraction modeling (SpInt)
 module in the python spatial analysis library
 (PySAL)}{A primer for working with the Spatial Interaction modeling (SpInt) module in the python spatial analysis library (PySAL)}}\label{a-primer-for-working-with-the-spatial-interaction-modeling-spint-module-in-the-python-spatial-analysis-library-pysal}
 
-    \subsection{Introduction}\label{introduction}
+    \author{Taylor M. Oshan}
+    
+    \maketitle
+    
+   
+
+    \section{Introduction}\label{introduction}
 
     Spatial interaction modeling involves the analysis of flows from an
-origin to a destination either over physical space (i.e., migration) or
+origin to a destination, either over physical space (i.e., migration) or
 through abstract space (i.e., telecommunication). Despite being a
 fundamental technique to many geogaphic disciplines, there is relatively
 little software available to carry out spatial interaction modeling and
@@ -291,15 +293,14 @@ the analysis of flow data. Therefore, the purpose of this primer is to
 provide an overview of the recently develped spatial interaction
 modeling (SpInt) module of the python spatial analysis library (PySAL).
 First, the current framework of the module will be highlighted. Next,
-the main functionality of the module will be illustrated with a common
-regional science example, migration flows, with a dataset previously
-used for spatial interaction modeling tutorials in the R programming
-environment. Finally, some auxilliary functionality and future additions
-are discussed.
+the main functionality of the module will be illustrated using migration
+flows with a dataset previously used for spatial interaction modeling
+tutorials in the R programming environment. Finally, some future
+additions are discussed.
 
-    \subsection{The SpInt Framework}\label{the-spint-framework}
+    \section{The SpInt framework}\label{the-spint-framework}
 
-    \subsubsection{Modeling framework}\label{modeling-framework}
+    \subsection{Modeling framework}\label{modeling-framework}
 
     The core purpose of the SpInt module is to provide the functionality to
 calibrate spatial interaction models. Since the ``family'' of spatial
@@ -325,8 +326,8 @@ where
   \(d\) = an \(n \times m\) matrix of the costs to overcome the physical
   separation between \(i\) and \(j\) (usually distance or time)
 \item
-  \(k\) = a scaling factor to be estimated to ensure the total flows is
-  consistent
+  \(k\) = a scaling factor to be estimated to ensure the total observed
+  and predicted flows are consistent
 \item
   \(\mu\) = a \(p \times 1\) vector of parameters representing the
   effect of \(p\) origin attributes on flows
@@ -353,11 +354,11 @@ destinations by finding the most probable configuration of flows out of
 all possible configurations, without making any additional assumptions.
 By using a common optimization problem and including information about
 the total inflows and outflows at each location (also called
-constraints), the following ``family'' of models can be obtained:
+constraints), the following ``family'' of models can be obtained,
 
 \[
 \begin{align}
-&Unconstrained \ (Gravity) \\
+&Unconstrained \  \\
 &Tij = V_{i}^\mu W_{j}^\alpha  f(d_{ij}) \quad & (2) \\
 \\
 &Production-constrained \\
@@ -385,7 +386,7 @@ where
   \(D_{j}\) = an \(m \times 1\) vector of the total number of flows
   terminating at destination \(j\)
 \item
-  \(A_{i}\) = an \(n \times 1\) vector of thevorigin balancing factors
+  \(A_{i}\) = an \(n \times 1\) vector of the origin balancing factors
   that ensures the total out-flows are preserved in the predicted flows
 \item
   \(B_{j}\) = an \(m \times 1\) vector of the destination balancing
@@ -408,21 +409,23 @@ where
 \]
 
 where \(\beta\) is expected to take a negative value. Different
-distance-decay functions assume different responses to higher costs
-associated with moving to more distant locations. Of note is that the
-unconstrained model with of power function distance-decay is equivalent
-to the basic gravity model in equation (2), except that the scaling
-factor, \(k\), is not included. In fact, there is no scaling factor in
-any of the members of the family of maximum entropy models because there
-is a total trip constrained implied in their derivation and subsequently
-incorporated into their calibration (Fotheringham \& O'Kelly , 1989).
-Another aside is that in the doubly-constrained maximum entoropy model
+distance-decay functions assume different responses to the increasing
+costs associated with moving to more distant locations. Of note is that
+the unconstrained model with a power function distance-decay is
+equivalent to the basic gravity model in equation (2), except that the
+scaling factor, \(k\), is not included. In fact, there is no scaling
+factor in any of the members of the family of maximum entropy models
+because there is a total trip constrained implied in their derivation
+and subsequently their calibration (Fotheringham \& O'Kelly , 1989).
+Another aside is that in the doubly-constrained maximum entoropy model,
 the values for \(A_{i}\) and \(B_{j}\) are dependent upon each other and
 may need to be computed iteratively depending on calibration technqiue.
-It is also usually assumed that \(n=m\) for doubly-constrained models.
+It is also usually assumed that all locations are both origins and
+destinations (i.e., \(n=m\)) for doubly-constrained models.
 
-The family provides different model strucutre depedning on the available
-data or the research question at hand. The so-called unconstrained model
+Each member of the family of models provides a different system
+strucutre , which can be chosen depedning on the available data or the
+specific research question at hand. The so-called unconstrained model
 does not conserve the total inflows or outflows during parameter
 estimation. The production-constrained and attraction-constrained models
 conserve either the number of total inflows or outflows, respectively,
@@ -440,7 +443,7 @@ doubly-constrained model usually provides the most accurate predictions,
 followed by the two singly-constrained models, and the unconstrained
 model supplying the weakest predictions (Fotheringham \& O'Kelly, 1989).
 
-    \subsubsection{Calibration framework}\label{calibration-framework}
+    \subsection{Calibration framework}\label{calibration-framework}
 
     Spatial interaction models are often calibrated via linear programming,
 nonlinear optimization, or increasingly more often through linear
@@ -449,16 +452,29 @@ framework it was chosen as the primary model calibration technqiue
 within the SpInt module. By taking the natural logarithm of both sides
 of a spatial interaction model, say the basic gravity model, is is
 possible to obtain the so-called log-linear or log-normal spatial
-interaction model:
+interaction model,
 
-\[\ln{T_{ij}} = k + \mu \ln{V_{i}} + \alpha \ln{W_{j}} - \beta \ln{d_{ij}} + \epsilon \quad (8)\]
+\[
+\begin{align}
+& Power-function \\
+&\ln{T_{ij}} = k + \mu \ln{V_{i}} + \alpha \ln{W_{j}} - \beta \ln{d_{ij}} + \epsilon \quad &(8a) \\
+\\
+& Exponential-function \\
+&\ln{T_{ij}} = k + \mu \ln{V_{i}} + \alpha \ln{W_{j}} - \beta {d_{ij}} + \epsilon \quad &(8b) \\
+\end{align}
+\]
 
 where \(\epsilon\) is a a normally distributed error term with a mean of
-0. Constrained spatial interaction models can be achieved by including a
-fixed effects for the origins (production-constrained), a fixed effect
-for the destinations (attraction-constrained) or both
+0. The only difference between equations (8a) and (8b) is the functional
+distance-decay specification, which results from plugging either
+equation (6) for a power function or (7) for an exponential function
+into equation (2) before linearizing it. The only practical difference
+here is that the distance is logged in equation (8a) whereas in equation
+(8b) it is not. Constrained spatial interaction models can be achieved
+by including fixed effects for the origins (production-constrained),
+fixed effects for the destinations (attraction-constrained) or both
 (doubly-constrained). However, there are several limitations of the
-log-normal gravity model, which include:
+log-normal gravity model, which include,
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -469,47 +485,56 @@ log-normal gravity model, which include:
 \item
   flows are often not normally distributed;
 \item
-  Bias
+  downward biased flow predictions due to producing estimates for the
+  logarithm of flows instead of actual flows
 \item
-  zero flows
+  zero flows are problematic since the logarithm of zero is undefined.
 \end{enumerate}
 
-Therefore, Flowerdew (1984) proposes the Poisson log-linear regression
-specification for the family of spatial interaction models. This
-specification assumes that the number of flows between \(i\) and \(j\)
-is drawn from a Poisson distribution with mean,
+Therefore, Flowerdew and Aitkin (1982) propose the Poisson log-linear
+regression specification for the family of spatial interaction models.
+This specification assumes that the number of flows between \(i\) and
+\(j\) is drawn from a Poisson distribution with mean,
 \(\lambda_{ij} = T_{ij}\), where \(\lambda_{ij}\) is assumed to be
 logarithmically linked to the linear combination of variables,
 
-\[\ln{\lambda_ij} = k + \mu V_{i} + \alpha W_{j} - \beta d_{ij}) \quad (9)\]
+\[\ln{\lambda_{ij}} = k + \mu \ln V_{i} + \alpha \ln W_{j} - \beta \ln d_{ij}) \quad (9a)\]
 
-and exponentiating both sides of the equation yields the following
-family of Poisson log-linear spatial interaction models:
+and exponentiating both sides of the equation yields the unconstrained
+Poisson log-linear gravity model,
+
+\[T_{ij} = \exp(k + \mu \ln V_{i} + \alpha \ln W_{j} - \beta \ln d_{ij}) \quad (9b) \]
+
+where equations (9a) and (9b) refer to the unconstrained model with a
+power function distance-decay. As previously mentioned, using fixed
+effects for the balancing in equations (3-5) factors, the constrained
+variants of the family of spatial interaction models can be specified
+as,
 
 \[
 \begin{align}
-&Unconstrained \\
-&T_{ij} = \exp(k + \mu V_{i} + \alpha W_{j} - \beta d_{ij}) \quad & (10) \\
-\\
 &Production-constrained \\
-&T_{ij} = \exp(k + \mu_{i} + \alpha W_{j} - \beta d_{ij}) \quad & (11) \\
+&T_{ij} = \exp(k + \mu_{i} + \alpha \ln W_{j} - \beta \ln d_{ij}) \quad & (10) \\
 \\
 &Attraction-constrained \\
-&T_{ij} = \exp(k + \mu V_{i} + \alpha_{j} - \beta d_{ij}) \quad & (12) \\
+&T_{ij} = \exp(k + \mu \ln V_{i} + \alpha_{j} - \beta \ln d_{ij}) \quad & (11) \\
 \\
 &Doubly-constrained \\
-&T_{ij} = \exp(k + \mu_{i} + \alpha_{j} - \beta d_{ij}) \quad & (13) \\
+&T_{ij} = \exp(k + \mu_{i} + \alpha_{j} - \beta \ln d_{ij}) \quad & (12) \\
 \end{align}
 \]
 
 where \(\mu_{i}\) are origin fixed effects and \(\alpha_{i}\) are
-destination fixed effects that achieve the same constraints as the
-balancing factors in equations (2-5). Using Poisson regression
-automatically alleviates limiations (1) and (2) and since we no longer
-need to take the logarithm of \(T_{ij}\), issue (4) is also absolved.
-Using fixed effects within Poisson regression to calibrate the
-doubly-constrained model also avoids the need for iterative computation
-of the balancing factors that exists in other calibration methods.
+destination fixed effects that achieve the same results as including
+balancing factors. Similar to equation (8b) the exponential function
+distance-decay can be specified in equation (9b, 10-12) by ommiting the
+logarithm associated with \(d_{ij}\). Using Poisson regression is more
+representative of flows and satisfies limaitations (1-2) and it also
+alleviates limiations (3-4) since we no longer need to take the
+logarithm of \(T_{ij}\). Using fixed effects within Poisson regression
+to calibrate the doubly-constrained model also avoids the need for
+iterative computation of the balancing factors that exists in other
+calibration methods (Fotheringham \& O'Kelly, 1989).
 
 Calibration of Poisson regression can be carried out within a
 generalized linear modeling framework (GLM) using iteratively weighted
@@ -524,34 +549,102 @@ indicator variables needed to construct the fixed effects that enforce
 the constraints. Therefore, larger spatial interaction datasets become
 increasingly sparse and the utilization of sparse data structures take
 advantage of this feature. As a metric, constrained models with
-\(n = 3,000\) locations, which implies \(n^2 = 9,000,000\) observations
-can still be calibrated within minutes on a standard macbook pro
-notebook.
+\(n = m = 3,000\) locations, which implies \(n*m = n^2 = 9,000,000\)
+observed flows when each location is an origin and destination, can be
+calibrated within minutes on a standard macbook pro notebook.
 
-    \subsection{An Illustrative example: migration in
+    \subsection{Model fit statistics}\label{model-fit-statistics}
+
+    In order to evaluate the fit of spatial interaction models, it has been
+recommended that a variety of statistics be used (Knudesen \&
+Fotheringham, 1986), which is the apporach taken in SpInt. For the
+log-normal regression specifcation, it is popular to utilize the
+coefficient of determination (\(R^2\)), though this statistic is not
+available within the GLM framework used by SpInt. In replacement of the
+\(R^2\) statistic, the SpInt framework provides a psuedo \(R^2\) based
+on the likelihood function (McFadden, 1974),
+
+\[R^2_{pseudo} = 1 - \frac{\ln \hat{L}(M_{full})}{\ln \hat{L}(M_{Intercept})} \quad(14)\]
+
+where \(\hat{L}\) is the likelihood of an estimated model, \(M_{full}\)
+is the model including all explanatory variables of interest, and
+\(M_{Intercept}\) is the model with only an intercept (i.e., no
+covariates). Like the \(R^2\) statistic, the pseudo version is at a
+maximum at a value of 1 with higher values denoting better model fit. To
+acocunt for model complexity, there is also an adjusted version of this
+statistic,
+
+\[R^2_{adj-pseudo} = 1 - \frac{\ln \hat{L}(M_{full}) - K}{\ln \hat{L}(M_{Intercept})} \quad(15)\]
+
+where \(K\) is the number of regressors. If model fit does not
+sufficiently improve, then it is possuble for this measure to decrease
+as variables are added, signaling that the additional variables do not
+contribute towards a better model fit. Henceforth, these psuedo \(R^2\)
+statistics are reffered to soley as \(R^2\) and adjusted \(R^2\).
+Another model fit statistic available in the SpInt module that also
+acocunts for model complexity is the the Akaike information criterion
+(AIC),
+
+\[ AIC = -2\ln \hat{L}(M_{full}) + 2K  \quad(16)\]
+
+where lower AIC values indicate a better model fit (Akaike, 1974). This
+statistic is grounded in information theory, whereby the AIC is an
+asymptotic estimate of the information that is lost by using the full
+model to represent a given theoretical process.
+
+The psuedo \(R^2\) and AIC are designed for model selection, which means
+they should not be used to compare between different spatial systems.
+One solution to issue is the standardized root mean sqaure error
+(SRMSE),
+
+\[ SRMSE = \frac{\frac{\sqrt{\sum_{i}\sum_{j}(T_{ij} - \hat{T}_{ij})^{2}}}{n*m}}{\frac{\sum_{i}\sum_{j}T_{ij}}{n*m}} \quad(17)\]
+
+where the numberator is the root mean square error of the observed
+flows, \(T_{ij}\), and the flows predicted by the model,
+\(\hat{T}_{ij}\), and the denominator is the mean of the observed flows
+and is responsbile for standardization of the statistic. Here, \(n*m\)
+is the number of origin-destination pairs that constitue system of
+flows. A SRMSE value of 0 indicates perfect model fit, while higher
+values indicate decreasing model fit; however, the upper limit of the
+statistic is not necessarily 1 and will depend on the distribution of
+the observed values (Knudsen \& Fotheringham, 1986).
+
+One final fit statistic, a modified Sorensen similarity index (SSI), is
+included within the SpInt module because it has become increasinly
+popular in some spatial interaction literature that deals with
+non-parametric models (Lenormand et al., 2012; Massuci et al., 2012; Yan
+et al., 2013). Using the same symbol definition from the SRMSE, the SSI
+is defined as,
+
+\[ SSI = \frac{1}{(n*m)} \sum_{i} \sum_{j} \frac{2min(T_{ij}, \hat{T}_{ij})}{T_{ij} + \hat{T}_{ij}} \quad(18)\]
+
+which is bounded between values of 0 and 1 with values closer to 1
+indicating a better model fit.
+
+    \section{An illustrative example: migration in
 Austria}\label{an-illustrative-example-migration-in-austria}
 
-    \subsubsection{The data}\label{the-data}
+    \subsection{The data}\label{the-data}
 
-    The following example purposefully utilizes data that has was previously
-used to demonstrate spatial interaction modeling the R programming
-language for validation and consistency. The data is migration flows
-between Austrian NUTS level 2 municipalities in 2006. In order to use a
-regression-based calibration, the data has to be transformed from the
-matrices and vectors described in equations (1-5) to a table where each
-row represents a single origin-destination dyad, \((i,j)\) and any
-variables associated with either location. Details on how to do this are
-outlined further in (LeSage \& Pace, 2008), though this has already been
-done in the example data. Let's have a look!
+    Despite being a small toy dataset, the following example is utilizes for
+consistency since it was previously used to demonstrate spatial
+interaction modeling in the R programming language (Dennett, 2012). The
+data are migration flows between Austrian NUTS level 2 municipalities in
+2006. In order to use a regression-based calibration, the data has to be
+transformed from the matrices and vectors described in equations (1-5)
+to a table where each row represents a single origin-destination dyad,
+\((i,j)\) and any variables associated with locations \(i\) and \(j\).
+Details on how to do this are outlined further in (LeSage \& Pace,
+2008), though this has already been done in the example data. Let's have
+a look!
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}74}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
          \PY{k+kn}{import} \PY{n+nn}{geopandas} \PY{k+kn}{as} \PY{n+nn}{gp}
          \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
          \PY{n}{austria\PYZus{}shp} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{austria.shp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{austria\PYZus{}shp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
-         \PY{n}{austria} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://dl.dropbox.com/u/8649795/AT\PYZus{}Austria.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{n}{austria}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oi2007}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dj2007}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT21}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT31}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT33}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrigAT34}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT21}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT22}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT31}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT33}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DestAT34}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Offset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{austria} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{austria.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{austria}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
@@ -561,16 +654,16 @@ Populating the interactive namespace from numpy and matplotlib
     \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}74}]:}   Origin Destination  Data    Oi     Dj            Dij
-         0   AT11        AT11     0  4016   5146  1.000000e-300
-         1   AT11        AT12  1131  4016  25741   1.030018e+02
-         2   AT11        AT13  1887  4016  26980   8.420467e+01
-         3   AT11        AT21    69  4016   4117   2.208119e+02
-         4   AT11        AT22   738  4016   8634   1.320075e+02
+{\color{outcolor}Out[{\color{outcolor}19}]:}    Unnamed: 0 Origin Destination  Data    Oi     Dj            Dij
+         0           0   AT11        AT11     0  4016   5146  1.000000e-300
+         1           1   AT11        AT12  1131  4016  25741   1.030018e+02
+         2           2   AT11        AT13  1887  4016  26980   8.420467e+01
+         3           3   AT11        AT21    69  4016   4117   2.208119e+02
+         4           4   AT11        AT22   738  4016   8634   1.320075e+02
 \end{Verbatim}
         
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SpIntPrimer_files/SpIntPrimer_11_2.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SpIntPrimer_files/SpIntPrimer_13_2.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -578,57 +671,68 @@ Populating the interactive namespace from numpy and matplotlib
 origin, \(i\), and destination, \(j\), location labels, the
 \textbf{Data} column is the number of flows, the \textbf{Oi} and
 \textbf{Dj} columns are the number of total out-flows and total
-in-flows, respectively, and the \textbf{Dij} column is the distance
-between \(i\) and \(j\). In this case we use the total out-flow and
-total in-flow as variables to describe how emissive an origin is and how
-attractive a destination is. If we want a more informative model we can
-replace these with application specific variables that pertain to
-different hypotheses. Next, lets format the data into arrays.
+in-flows, respectively, and the \textbf{Dij} column is the Euclidian
+distance between the centroids of \(i\) and \(j\). In this case we use
+the total out-flow and total in-flow as variables to describe how
+emissive an origin is and how attractive a destination is. If we want a
+more informative and interesting model we can replace these with
+application specific variables that pertain to different hypotheses.
+Next, lets format the data into arrays.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{austria} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
-         \PY{n}{flows} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
-         \PY{n}{Oi} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
-         \PY{n}{Dj} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
-         \PY{n}{Dij} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dij}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
-         \PY{n}{Origin} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
-         \PY{n}{Destination} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{austria} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{flows} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{Oi} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{Dj} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{Dij} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dij}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{Origin} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{Destination} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
 \end{Verbatim}
 
     The Oi and Dj vectors need not be \(n^2 \times 1\) vectors. In fact,
 they can be \(n^2 \times k\) where \(k\) is the number of variables that
-are being used to describe origin or desitnation factors associated with
-flows.
+are either being used to describe origin or desitnation attributes
+associated with flows. It should also be noted that intra-zonal flows
+have been excluded (the first line of code above). This is sometimes
+done becasue intra-zonal flows are large compared to inter-zonal flows
+and would therefore heavily influence the model or becasue it is not
+possible to adequately define a distance associated with intra-zonal
+flows. Some solutions to these issues have been proposed (Kordi et al.,
+2012; Tsutsumi \& Tamesue, 2012), though for simplicity, intra-zonal
+were removed for this example. Therefore
 
-    \subsubsection{Calibrating the models}\label{calibrating-the-models}
+    \subsection{Calibrating the models}\label{calibrating-the-models}
 
     Now, lets load the main SpInt functions and calibrate some models. The
 main SpInt functions are found within the gravity namespace of the SpInt
-module ans the estimated parameters can be accessed via the
+module and the estimated parameters can be accessed via the
 \textbf{params} attribute of a successfully instantiated spatial
 interaction model.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}64}]:} \PY{k+kn}{from} \PY{n+nn}{pysal.contrib.spint.gravity} \PY{k+kn}{import} \PY{n}{Gravity}\PY{p}{,} \PY{n}{Production}\PY{p}{,} \PY{n}{Attraction}\PY{p}{,} \PY{n}{Doubly}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{pysal.contrib.spint.gravity} \PY{k+kn}{import} \PY{n}{Gravity}
+        \PY{k+kn}{from} \PY{n+nn}{pysal.contrib.spint.gravity} \PY{k+kn}{import} \PY{n}{Production}
+        \PY{k+kn}{from} \PY{n+nn}{pysal.contrib.spint.gravity} \PY{k+kn}{import} \PY{n}{Attraction}
+        \PY{k+kn}{from} \PY{n+nn}{pysal.contrib.spint.gravity} \PY{k+kn}{import} \PY{n}{Doubly}
 \end{Verbatim}
 
     Unconstrained (basic gravity) model
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{gravity} \PY{o}{=} \PY{n}{Gravity}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Oi}\PY{p}{,} \PY{n}{Dj}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{k}{print} \PY{n}{gravity}\PY{o}{.}\PY{n}{params}
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{gravity} \PY{o}{=} \PY{n}{Gravity}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Oi}\PY{p}{,} \PY{n}{Dj}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{print} \PY{n}{gravity}\PY{o}{.}\PY{n}{params}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[ 0.44314667  0.51739961 -0.00979932]
+[ -8.01822841e+00   8.69316127e-01   8.91445153e-01  -6.22938370e-03]
 
     \end{Verbatim}
 
     Production-constrained model
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{production} \PY{o}{=} \PY{n}{Production}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Origin}\PY{p}{,} \PY{n}{Dj}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{production} \PY{o}{=} \PY{n}{Production}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Origin}\PY{p}{,} \PY{n}{Dj}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -639,8 +743,8 @@ interaction model.
     Attraction-constrained model
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{attraction} \PY{o}{=} \PY{n}{Attraction}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Destination}\PY{p}{,} \PY{n}{Oi}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{k}{print} \PY{n}{attraction}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{attraction} \PY{o}{=} \PY{n}{Attraction}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Destination}\PY{p}{,} \PY{n}{Oi}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{print} \PY{n}{attraction}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -651,8 +755,8 @@ interaction model.
     Doubly-constrained model
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{doubly} \PY{o}{=} \PY{n}{Doubly}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Origin}\PY{p}{,} \PY{n}{Destination}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-         \PY{k}{print} \PY{n}{doubly}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{doubly} \PY{o}{=} \PY{n}{Doubly}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Origin}\PY{p}{,} \PY{n}{Destination}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{print} \PY{n}{doubly}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -661,17 +765,17 @@ interaction model.
     \end{Verbatim}
 
     Note that for the constrained models we have limited the params
-attribute to print only those associated variables (i.e., not fixed
+attribute to print only the main model variables (i.e., not fixed
 effects), though it is still possible to access the fixed effect
 parameters too.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}67}]:} \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{params}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{params}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[-1.16851884  0.52128801  0.98284063 -0.56934181 -0.28515686  0.0381801
- -0.47906115 -0.0141766  -0.1583821   0.90285448 -0.0072617 ]
+[-1.16851884  1.68980685  2.15135947  0.59917703  0.88336198  1.20669895
+  0.68945769  1.15434225  1.01013674  0.90285448 -0.0072617 ]
 
     \end{Verbatim}
 
@@ -683,87 +787,366 @@ programming languages, you would use \(n - 1\) binary indicator
 variables in the design matrix to include the fixed effects for all 9
 municipalities in the model. While the non-zero entries in these columns
 of the design matrix indicate which rows are associated with which
-miunicipality, where a row has all zero entries then refers to the
-\(nth\) municipality that has been left out. In Spint this is always the
-first origin or destination for the production-constrained and
-attraction-constrained models. For the doubly-cosntrained model, both
-the first origin and the first destination are left out. In terms of
-interpetting the parameters, these dropped locations are assumed to be
-0. Since the fixed effects parameters are interpretted as deviations
-from the overall intercept, this essentially means the intercept acts as
-the fixed effect for the first location. Therefore, we could also say
-first 9 parameters are the origin fixed effect parameters and that the
-last two parameters are for destination attractiveness and distance,
-respectively.
+miunicipality, where a row has all zero entries then implicitly refers
+to the \(n\)th municipality that has been left out. In Spint, this is
+always the first origin or destination for the production-constrained
+and attraction-constrained models. For the doubly-cosntrained model,
+both the first origin and the first destination are left out
+(Tiefelsdorf \& Boots, 1995). In terms of interpetting the parameters,
+these dropped locations are assumed to be 0. Since the fixed effects
+parameters are interpretted as deviations from the overall intercept,
+this essentially means the intercept acts as the fixed effect for the
+first origin and/or destination, depending on which constrained model is
+calibrated. Said differently, the fixed effect for the first origin
+and/or destination serves as the overall intercept.
 
-    \subsubsection{Interpretting the
+    \subsection{Interpreting the
 parameters}\label{interpretting-the-parameters}
 
-    \subsubsection{Assessing model fit}\label{assessing-model-fit}
+    First, it will be demonstrated how to interpret the coefficients
+associated with the main model variables from a general Poisson
+regression. However, because the spatial interaction model is a
+log-linear Poisson regression (i.e., we take the log of the explanatory
+variables) the same interpretation often cannot be applied because we are
+working in logarithmic space. Therefore, it will also be demonstrated
+how to interpret the parameters when they are associated with a logged
+explanatory variable.
+
+Recall from the previous section that the exponential distance-decay
+specification results in a model that does not take the logarithm of
+\(d_ij\). Therefore, we can use an unconstrained gravity model with an
+exponential distance-decay specification to demonstrate a typical
+interpretation of coefficients from a Poisson regression.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}63}]:} \PY{k}{print} \PY{n}{gravity}\PY{o}{.}\PY{n}{pseudoR2}
-         \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{pseudoR2}
-         \PY{k}{print} \PY{n}{attraction}\PY{o}{.}\PY{n}{pseudoR2}
-         \PY{k}{print} \PY{n}{doubly}\PY{o}{.}\PY{n}{pseudoR2}
-         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
-         \PY{k}{print} \PY{n}{gravity}\PY{o}{.}\PY{n}{D2}
-         \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{D2}
-         \PY{k}{print} \PY{n}{attraction}\PY{o}{.}\PY{n}{D2}
-         \PY{k}{print} \PY{n}{doubly}\PY{o}{.}\PY{n}{D2}
-         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
-         \PY{k}{print} \PY{n}{gravity}\PY{o}{.}\PY{n}{SSI}
-         \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{SSI}
-         \PY{k}{print} \PY{n}{attraction}\PY{o}{.}\PY{n}{SSI}
-         \PY{k}{print} \PY{n}{doubly}\PY{o}{.}\PY{n}{SSI}
-         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
-         \PY{k}{print} \PY{n}{gravity}\PY{o}{.}\PY{n}{SRMSE}
-         \PY{k}{print} \PY{n}{production}\PY{o}{.}\PY{n}{SRMSE}
-         \PY{k}{print} \PY{n}{attraction}\PY{o}{.}\PY{n}{SRMSE}
-         \PY{k}{print} \PY{n}{doubly}\PY{o}{.}\PY{n}{SRMSE}
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{gravity} \PY{o}{=} \PY{n}{Gravity}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Oi}\PY{p}{,} \PY{n}{Dj}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{print} \PY{n}{gravity}\PY{o}{.}\PY{n}{params}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-0.812858632041
-0.910155702595
-0.909354566583
-0.943539912198
-
-0.834893355219
-0.913167247331
-0.912363460094
-0.946661920896
-
-0.68757357636
-0.740913740348
-0.752155260541
-0.811852110904
-
-1.01757072219
-0.464519773826
-0.58404798182
-0.37928618533
+[ -8.01822841e+00   8.69316127e-01   8.91445153e-01  -6.22938370e-03]
 
     \end{Verbatim}
 
-    \subsubsection{Local models}\label{local-models}
+    -6.22938370e-03 is the coefficient for the distance variable in the
+above example. In Poisson regression, the coefficients are typically
+interpreted as the proportionate change in the predicted response, here
+\(T_{ij}\), if we increase an explanatory variable by 1 unit (Cameron \&
+Trivedi, 2013). Technically, this is expressed as,
 
-    \subsubsection{Testing for
-overdispersion}\label{testing-for-overdispersion}
+\[ \tilde{T}_{ij} = T_{ij}* \exp(\beta) \quad (19)\]
 
-    \subsection{Additional functionality}\label{additional-functionality}
+where \(\tilde{T}_{ij}\) is the new value of \(T_{ij}\) and \(\beta\) is
+a coefficient, here the one typically associated with distance in a
+Poisson log-linear spatial interaction model with an exponential
+function distance-decay. For this example, this means from a 1 unit
+increase in distance, if our model predicted 2,500 flows, then we can
+expect the number of flows to decrease to approximately 2,484.475. We
+can also identify the percent change expected from a one unit increase
+in distance using,
 
-    \subsubsection{Existing features}\label{existing-features}
+\[\Delta_{\%} = (1-exp(\beta))*100.0 \quad (20)\]
 
-    \subsubsection{Future additions}\label{future-additions}
+which serves as an alternative interpretation of \(\beta\). In this case,
+we could say that from a 1 unit increase in distance we could expect the
+number of predicted flows to decrease by approximately 0.621\%.
 
-    Finally, there are several paradigms for incorporating spatial effects
-into spatial interaction models (competing destinations, spatial
-autoregressive, eigenvector spatial filter)
+However, neither equation (19) or (20) is applicable when the
+coefficient is associated with a logged explanatory variable. This is
+important for Poisson log-linear spatial interaction models because this
+applies to the origin and destination variables when using an
+exponential function of distance-decay and to the origin, destination,
+and distance variables when using a power function of distance-decay. In
+these cases, the interoperation of the coefficients becomes the percent
+change in the predicted response, here \(T_{ij}\), if we increase the
+associated explanatory variable by 1\% (Cameron \& Trivedi, 2013). For
+example, 8.91445153e-01 is the coefficient associated with destination
+total in-flows (i.e., attractiveness) in the above example. Then if we
+increase the in-flows to location \(j\) by 1\%, say from \(25,000\) to
+\(25,250\), we can expect the number of flows from \(i\) to \(j\) (i.e.,
+\(T_{ij}\)) to increase from \(2,000\) to \(2,020\).
+
+Finally, the fixed effects in the constrained models can be interpreted
+such that the mean predicted flows, \(T_{ij}\), are \(e^{\mu_{i}}\)
+(\(e^{\alpha_{j}}\)) times larger if they originate (terminate) from
+location \(i\) (location \(j\)) (Cameron \& Trivedi, 2013), where
+\(e^{\mu_{i}}\) is equivalent notation for \(\exp(\mu_{i})\).
+
+    \subsection{Assessing model fit}\label{assessing-model-fit}
+
+    We can compare the different model fit statistics across the four types
+of spatial interaction models for this example. Let's process the
+statistics into a tidy table have a look.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} 
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{R2}\PY{p}{,} \PY{n}{adjR2}\PY{p}{,} \PY{n}{SSI}\PY{p}{,} \PY{n}{SRMSE}\PY{p}{,} \PY{n}{AIC} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+         \PY{n}{model\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{att}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doub}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{col\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adjR2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AIC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRMSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SSI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{gravity}\PY{p}{,} \PY{n}{production}\PY{p}{,} \PY{n}{attraction}\PY{p}{,} \PY{n}{doubly}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{model} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n}{R2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{pseudoR2}\PY{p}{)}
+             \PY{n}{adjR2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{adj\PYZus{}pseudoR2}\PY{p}{)}
+             \PY{n}{SSI}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{SSI}\PY{p}{)}
+             \PY{n}{SRMSE}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{SRMSE}\PY{p}{)}
+             \PY{n}{AIC}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{AIC}\PY{p}{)}
+         
+         \PY{n}{cols} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{model\PYZus{}name}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{R2}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adjR2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{adjR2}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SSI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{SSI}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRMSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{SRMSE}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AIC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{AIC} \PY{p}{\PYZcb{}}
+         
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{data}\PY{p}{[}\PY{n}{col\PYZus{}names}\PY{p}{]}
 \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}                   R2     adjR2           AIC     SRMSE       SSI
+         model\_name                                                      
+         grav        0.885764  0.885718  20122.074349  0.607776  0.727358
+         prod        0.910156  0.910031  15841.253799  0.464520  0.740914
+         att         0.909355  0.909230  15982.313101  0.584048  0.752155
+         doub        0.943540  0.943335   9977.159141  0.379286  0.811852
+\end{Verbatim}
+        
+    From this table we can see that all of the fit statistics indicate a
+better model fit as constraints are introduced. That is, the weakest
+model fit is consistently related to the gravity model, with similarly
+increased model fit for the production-constrained and
+attraction-constrained models, and finally, the best model fit is
+associated with the doubly constrained model. We can also see that the
+\(R^2\) and adjusted \(R^2\) are very close, since these models have a
+very similar number of explanatory variables, thereby resulting in
+little to no penalization for model complexity.
+
+We can also take a look at whether the power or exponential
+distance-decay specification results in a better model fit. For
+simplicity, lets just take a look at the SRMSE for a doubly constrained
+model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRMSE for exp distance\PYZhy{}decay: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{doubly}\PY{o}{.}\PY{n}{SRMSE}
+         \PY{n}{pow\PYZus{}doubly} \PY{o}{=} \PY{n}{Doubly}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Origin}\PY{p}{,} \PY{n}{Destination}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SRMSE for exp distance\PYZhy{}decay: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pow\PYZus{}doubly}\PY{o}{.}\PY{n}{SRMSE}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+SRMSE for exp distance-decay:  0.37928618533
+SRMSE for exp distance-decay:  0.277703139642
+
+    \end{Verbatim}
+
+    For this example, it looks like the power distance-decay specification
+results in a better model fit.
+
+    \subsection{Local models}\label{local-models}
+
+    The SpInt module also makes it possible to calibrate ``local'' models,
+which subset the data by specific origins or destinations in order o
+investigate how spatial interaction processes vary over space
+(Fotheringham \& Brundson, 1999). Below is an example of how to get
+local parameters and local diagnostics for a gravity model subset by its
+origins. The result is a dictionary of lists where they keys are the
+different sets of local values including parameters, hypothesis testing
+diagnostics, and the previously reviewed fit statistics.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{gravity} \PY{o}{=} \PY{n}{Gravity}\PY{p}{(}\PY{n}{flows}\PY{p}{,} \PY{n}{Oi}\PY{p}{,} \PY{n}{Dj}\PY{p}{,} \PY{n}{Dij}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{local\PYZus{}gravity} \PY{o}{=} \PY{n}{gravity}\PY{o}{.}\PY{n}{local}\PY{p}{(}\PY{n}{Origin}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{Origin}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    Lets take a look at the local distance-decay parameters. The origin,
+destination and distance-decay parameters are indexed sequentially
+throug the design matrix starting with 0 as you move through th origin
+attributes, through to the destination attributes, and finally the
+distance-decay attribute. Therefore, for \(n\) variables, the
+distance-decay parameters are always the \(n-1\)th parameter, in this
+case of 3 variables: \textbf{param2}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{print} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{local\PYZus{}gravity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{param2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-3.4028 -1.3583 -0.8307 -1.1492 -0.4781 -1.0095 -1.6758 -1.2156 -1.5397]
+
+    \end{Verbatim}
+
+    We can also take a look at the local \(R^2\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{print} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{local\PYZus{}gravity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pseudoR2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 0.9665  0.9894  0.9893  0.5205  0.676   0.7298  0.6333  0.432   0.515 ]
+
+    \end{Verbatim}
+
+    Both the local distance-decay and the \(R^2\) show some variation. We
+can explore this spatially, by mapping the local values. First, lets
+join the local values to a shapefile and then plot the local
+distance-decay parameters
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Join local values to census tracts}
+         \PY{n}{local\PYZus{}vals} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{betas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{local\PYZus{}gravity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{param2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{Origin}\PY{p}{)}\PY{p}{,} 
+                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pseudoR2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{local\PYZus{}gravity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pseudoR2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{local\PYZus{}vals} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{local\PYZus{}vals}\PY{p}{,} \PY{n}{austria\PYZus{}shp}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NUTS\PYZus{}ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                               \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NUTS\PYZus{}ID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{local\PYZus{}vals} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{GeoDataFrame}\PY{p}{(}\PY{n}{local\PYZus{}vals}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Plot betas \PYZhy{} use inverse so the most negative values are \PYZdq{}higher\PYZdq{}}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{local\PYZus{}vals}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inv\PYZus{}betas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{local\PYZus{}vals}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{betas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{local\PYZus{}vals}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inv\PYZus{}betas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x115da9fd0>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SpIntPrimer_files/SpIntPrimer_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Next, lets map the local \(R^2\) values. Above we can see a much
+stronger distance-decay for the most westerly municipality. Below we can
+see that the model fit in stronger in the north-west but decrease in the
+south-east. Using these patterns, we could then further postulate why
+they arise or how we might be able to imrpove model fit.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{local\PYZus{}vals}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pseudoR2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Greens}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x116f3b9d0>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SpIntPrimer_files/SpIntPrimer_51_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section*{Further functionality}\label{further-functionality}
+
+    In addition to all of the feature presented here, there are several
+other tools that exist in SpInt or could be added. First, there are
+dispersion tests avaialbe in the \textbf{dispersion} namespace of the
+SpInt module, which can be used to test whether or not the Poisson
+equidispersion asusmpotion is met. That is, that the conditional mean
+and variance are equivalent, which can be unrealistic in many scenarios.
+If these tests indicate overdispersion or underdispersion, then it might
+be appropriate to use a Quasi-Poisson model, which relaxes the
+equidispersion assumption of the Poisson model. The resulting parameter
+estimates are equivalent to the Poisson model, but the standard errors
+are typically larger whenever equidispersion does not hold (Wedderburn,
+1974). The Quasi-Poisson model specification can be carried out by
+setting \textbf{Quasi=True} in any of the spatial interaction model
+classes. Alternatively, it might be more appropriate to change the
+underlying probability model from Poisson to that of negatibe binomial
+or a zero-inflated model. However, this has not yet been implemented in
+SpInt and therefore remains as future work.
+
+Another area of potential expansion is accommodate several paradigms for
+incorporating spatial effects into spatial interaction models, such as
+competing destinations (Fotheringham, 1983), a spatial lag
+autoregressive model (LeSage \& Pace, 2008), or an eigenvector spatial
+filter model (Chun, 2009). These paradigms require code that computes
+additional variables, complex calibration techniques, and specialized
+representations of spatial relationships. While some solutions to the
+later are available in the \textbf{spintW} namespace of the
+\textbf{weights} module of PySAL, there is still much work to be done to
+develop a more robust set of spatial interaction modeling tools.
+
+    \section*{References}\label{references}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Akaike, Hirotugu. 1974. ``A New Look at the Statistical Model
+  Identification.'' Automatic Control, IEEE Transactions on 19 (6):
+  716--23.
+\item
+  Chun, Yongwan. 2008. ``Modeling Network Autocorrelation within
+  Migration Flows by Eigenvector Spatial Filtering.'' Journal of
+  Geographical Systems 10 (4): 317--44.
+\item
+  Dennett, Adam. 2012. ``Estimating Flows between Geographical
+  Locations:`get Me Started In'spatial Interaction Modelling.'' Working
+  Paper 184. CASA Working Paper Series. UCL: Citeseer.
+\item
+  Flowerdew, Robin, and Murray Aitkin. 1982. ``A Method of Fitting the
+  Gravity Model Based on the Poisson Distribution.'' Journal of Regional
+  Science 22 (2): 191--202.
+\item
+  Fotheringham, A. S. 1983. ``A New Set of Spatial-Interaction Models:
+  The Theory of Competing Destinations.'' Environment and Planning A 15
+  (1): 15--36.
+\item
+  Fotheringham, A. S., and M. E. O'Kelly. 1989. Spatial Interaction
+  Models:Formulations and Applications. London: Kluwer Academic
+  Publishers.
+\item
+  Fotheringham, A. Stewart, and Chris Brunsdon. 1999. ``Local Forms of
+  Spatial Analysis.'' Geographical Analysis 31 (4): 340--58.
+\item
+  Knudsen, D.C., and A.S. Fotheringham. 1986. ``Matrix Comparison,
+  Goodness-of-Fit, and Spatial Interaction Modeling.'' International
+  Regional Science Review 10: 127--47.
+\item
+  Kordi, Maryam, Christian Kaiser, and A. Stewart Fotheringham. 2012.
+  ``A Possible Solution for the Centroid-to-Centroid and Intra-Zonal
+  Trip Length Problems.'' In International Conference on Geographic
+  Information Science, Avignon.
+\item
+  Lenormand, Maxime, Sylvie Huet, Floriana Gargiulo, and Guillaume
+  Deffuant. 2012. ``A Universal Model of Commuting Networks.'' PLoS ONE
+  7 (10): e45985.
+\item
+  LeSage, James P., and R. Kelley Pace. 2008. ``Spatial Econometric
+  Modeling Of Origin-Destination Flows.'' Journal of Regional Science 48
+  (5): 941--67.
+\item
+  Masucci, A. P., J. Serras, A. Johansson, and M. Batty. 2012. ``Gravity
+  vs Radiation Model: On the Importance of Scale and Heterogeneity in
+  Commuting Flows.'' arXiv:1206.5735 {[}physics{]}, June.
+\item
+  McFadden, Daniel. 1974. ``Conditional Logit Analysis of Qualitative
+  Choice Behavior.'' In Frontiers in Econometrics, 105--42. New York:
+  Academic Press.
+\item
+  Nelder, J. A., and R. W. M. Wedderburn. 1972. ``Generalized Linear
+  Models.'' Journal of the Royal Statistical Society. Series A (General)
+  135 (3): 370--84.
+\item
+  Tiefelsdorf, M, and B Boots. 1995. ``The Specification of Constrained
+  Interaction Models Using the SPSS Loglinear Procedure.'' Geographical
+  Systems 2: 21--38.
+\item
+  Tsutsumi, Morito, and Kazuki Tamesue. 2012. ``Intraregional Flow
+  Problem in Spatial Econometric Model for Origin--destination Flows.''
+  Environment and Planning B: Planning and Design 39 (6): 1006--15.
+\item
+  Wedderburn, R. W. M. 1974. ``Quasi-Likelihood Functions, Generalized
+  Linear Models, and the Gauss-Newton Method.'' Biometrika 61 (3):
+  439--47. doi:10.2307/2334725.
+\item
+  Wilson, A. G. 1971. ``A Family of Spatial Interaction Models, and
+  Associated Developments.'' Environment and Planning A 3: 1--32.
+\item
+  Yan, Xiao-Yong, Chen Zhao, Ying Fan, Zengru Di, and Wen-Xu Wang. 2013.
+  ``Universal Predictability of Mobility Patterns in Cities.''
+  arXiv:1307.7502 {[}physics{]}, July.
+\end{enumerate}
 
 
     % Add a bibliography block to the postdoc
