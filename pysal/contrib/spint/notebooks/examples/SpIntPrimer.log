@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  25 OCT 2016 13:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  3 NOV 2016 14:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -23,6 +23,13 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
+)
+(/usr/local/texlive/2014/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip43
+\bibsep=\skip44
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count87
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
@@ -61,7 +68,7 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count87
+\Gread@gobject=\count88
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
@@ -80,7 +87,7 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 \caption@parindent=\dimen110
 \caption@hangindent=\dimen111
 )
-\c@ContinuedFloat=\count88
+\c@ContinuedFloat=\count89
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/adjustbox/adjustbox.sty
 Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
@@ -91,7 +98,7 @@ Package: xkeyval 2014/05/09 v2.6d package option processing (HA)
 (/usr/local/texlive/2014/texmf-dist/tex/generic/xkeyval/xkeyval.tex
 \XKV@toks=\toks15
 \XKV@tempa@toks=\toks16
-\XKV@depth=\count89
+\XKV@depth=\count90
 File: xkeyval.tex 2014/05/09 v2.6d key=value parser (HA)
 ))
 (/usr/local/texlive/2014/texmf-dist/tex/latex/adjustbox/adjcalc.sty
@@ -121,12 +128,12 @@ File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2011/09/13 v1.0 Conditionals for odd/even page detection
-\c@checkoddpage=\count90
+\c@checkoddpage=\count91
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box27
-\sift@deathcycles=\count91
+\sift@deathcycles=\count92
 \@vwid@loff=\dimen120
 \@vwid@roff=\dimen121
 ))
@@ -165,9 +172,9 @@ Package ifvtex Info: VTeX not detected.
 (/usr/local/texlive/2014/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count92
-\Gm@cntv=\count93
-\c@Gm@tempcnt=\count94
+\Gm@cnth=\count93
+\Gm@cntv=\count94
+\c@Gm@tempcnt=\count95
 \Gm@bindingoffset=\dimen122
 \Gm@wd@mp=\dimen123
 \Gm@odd@mp=\dimen124
@@ -180,7 +187,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2013/01/14 v2.14 AMS math features
-\@mathmargin=\skip43
+\@mathmargin=\skip45
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -198,13 +205,13 @@ Package: amsbsy 1999/11/29 v1.2d
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count95
+\inf@bad=\count96
 LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count96
-\leftroot@=\count97
+\uproot@=\count97
+\leftroot@=\count98
 LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count98
-\DOTSCASE@=\count99
+\classnum@=\count99
+\DOTSCASE@=\count100
 LaTeX Info: Redefining \ldots on input line 378.
 LaTeX Info: Redefining \dots on input line 381.
 LaTeX Info: Redefining \cdots on input line 466.
@@ -213,15 +220,15 @@ LaTeX Info: Redefining \cdots on input line 466.
 \big@size=\dimen132
 LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count100
-\c@MaxMatrixCols=\count101
+\macc@depth=\count101
+\c@MaxMatrixCols=\count102
 \dotsspace@=\muskip10
-\c@parentequation=\count102
-\dspbrk@lvl=\count103
+\c@parentequation=\count103
+\dspbrk@lvl=\count104
 \tag@help=\toks20
-\row@=\count104
-\column@=\count105
-\maxfields@=\count106
+\row@=\count105
+\column@=\count106
+\maxfields@=\count107
 \andhelp@=\toks21
 \eqnshift@=\dimen133
 \alignsep@=\dimen134
@@ -230,8 +237,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \totwidth@=\dimen137
 \lineht@=\dimen138
 \@envbody=\toks22
-\multlinegap=\skip44
-\multlinetaggap=\skip45
+\multlinegap=\skip46
+\multlinetaggap=\skip47
 \mathdisplay@stack=\toks23
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
@@ -341,7 +348,7 @@ Package: ucs 2013/05/11 v2.2 UCS: Unicode input support
 (/usr/local/texlive/2014/texmf-dist/tex/latex/ucs/data/uni-global.def
 File: uni-global.def 2013/05/13 UCS: Unicode global data
 )
-\uc@secondtry=\count107
+\uc@secondtry=\count108
 \uc@combtoks=\toks24
 \uc@combtoksb=\toks25
 \uc@temptokena=\toks26
@@ -359,11 +366,11 @@ Package: fancyvrb 2008/02/07
 
 Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
 <2008/02/07> (tvz)
-\FV@CodeLineNo=\count108
+\FV@CodeLineNo=\count109
 \FV@InFile=\read1
 \FV@TabBox=\box31
-\c@FancyVerbLine=\count109
-\FV@StepNumber=\count110
+\c@FancyVerbLine=\count110
+\FV@StepNumber=\count111
 \FV@OutFile=\write3
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/grffile.sty
@@ -440,13 +447,13 @@ Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen139
-\Hy@linkcounter=\count111
-\Hy@pagecounter=\count112
+\Hy@linkcounter=\count112
+\Hy@pagecounter=\count113
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count113
+\Hy@SavedSpaceFactor=\count114
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
@@ -458,7 +465,7 @@ Package hyperref Info: Plain pages OFF on input line 4458.
 Package hyperref Info: Backreferencing OFF on input line 4463.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
-\c@Hy@tempcnt=\count114
+\c@Hy@tempcnt=\count115
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
@@ -466,7 +473,7 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5041.
 \XeTeXLinkMargin=\dimen140
-\Fld@menulength=\count115
+\Fld@menulength=\count116
 \Field@Width=\dimen141
 \Fld@charsize=\dimen142
 Package hyperref Info: Hyper figures OFF on input line 6295.
@@ -478,41 +485,41 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6320.
 Package hyperref Info: PDF/A mode OFF on input line 6325.
 LaTeX Info: Redefining \ref on input line 6365.
 LaTeX Info: Redefining \pageref on input line 6369.
-\Hy@abspage=\count116
-\c@Item=\count117
-\c@Hfootnote=\count118
+\Hy@abspage=\count117
+\c@Item=\count118
+\c@Hfootnote=\count119
 )
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
-\Fld@listcount=\count119
-\c@bookmark@seq@number=\count120
+\Fld@listcount=\count120
+\c@bookmark@seq@number=\count121
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip46
+\Hy@SectionHShift=\skip48
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip47
-\LTright=\skip48
-\LTpre=\skip49
-\LTpost=\skip50
-\LTchunksize=\count121
+\LTleft=\skip49
+\LTright=\skip50
+\LTpre=\skip51
+\LTpost=\skip52
+\LTchunksize=\count122
 \LTcapwidth=\dimen143
 \LT@head=\box32
 \LT@firsthead=\box33
 \LT@foot=\box34
 \LT@lastfoot=\box35
-\LT@cols=\count122
-\LT@rows=\count123
-\c@LT@tables=\count124
-\c@LT@chunks=\count125
+\LT@cols=\count123
+\LT@rows=\count124
+\c@LT@tables=\count125
+\c@LT@chunks=\count126
 \LT@p@ftn=\toks29
 )
 (/usr/local/texlive/2014/texmf-dist/tex/latex/booktabs/booktabs.sty
@@ -527,71 +534,85 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \cmidrulesep=\dimen151
 \cmidrulekern=\dimen152
 \defaultaddspace=\dimen153
-\@cmidla=\count126
-\@cmidlb=\count127
+\@cmidla=\count127
+\@cmidlb=\count128
 \@aboverulesep=\dimen154
 \@belowrulesep=\dimen155
-\@thisruleclass=\count128
-\@lastruleclass=\count129
+\@thisruleclass=\count129
+\@lastruleclass=\count130
 \@thisrulewidth=\dimen156
 )
 (/usr/local/texlive/2014/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box36
 \UL@hyphenbox=\box37
-\UL@skip=\skip51
+\UL@skip=\skip53
 \UL@hook=\toks30
 \UL@height=\dimen157
-\UL@pe=\count130
+\UL@pe=\count131
 \UL@pixel=\dimen158
 \ULC@box=\box38
 Package: ulem 2012/05/18
 \ULdepth=\dimen159
 )
+(/usr/local/texlive/2014/texmf-dist/tex/latex/preprint/authblk.sty
+Package: authblk 2001/02/27 1.3 (PWD)
+\affilsep=\skip54
+\@affilsep=\skip55
+\c@Maxaffil=\count132
+\c@authors=\count133
+\c@affil=\count134
+)
 Package hyperref Info: Option `breaklinks' set `true' on input line 265.
 Package hyperref Info: Option `colorlinks' set `true' on input line 265.
 
+(/usr/local/texlive/2014/texmf-dist/tex/latex/titling/titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip56
+\thanksmargin=\skip57
+\droptitle=\skip58
+)
 (./SpIntPrimer.aux)
 \openout1 = `SpIntPrimer.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 272.
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 272.
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 272.
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 272.
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 272.
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 272.
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 272.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 272.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 273.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 273.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 273.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 273.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 273.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 273.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 273.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 273.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 272.
-LaTeX Font Info:    ... okay on input line 272.
-LaTeX Font Info:    Try loading font information for T1+ppl on input line 272.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 273.
+LaTeX Font Info:    ... okay on input line 273.
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 273.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1ppl.fd
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 )
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count131
+\scratchcounter=\count135
 \scratchdimen=\dimen160
 \scratchbox=\box39
-\nofMPsegments=\count132
-\nofMParguments=\count133
+\nofMPsegments=\count136
+\nofMParguments=\count137
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count134
+\MPscratchCnt=\count138
 \MPscratchDim=\dimen161
-\MPnumerator=\count135
-\makeMPintoPDFobject=\count136
+\MPnumerator=\count139
+\makeMPintoPDFobject=\count140
 \everyMPtoPDFconversion=\toks32
 ) (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -655,7 +676,7 @@ Package caption Info: End \AtBeginDocument code.
 File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 \AtBeginShipoutBox=\box40
-Package hyperref Info: Link coloring ON on input line 272.
+Package hyperref Info: Link coloring ON on input line 273.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -663,35 +684,35 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count137
+\c@section@level=\count141
 )
-LaTeX Info: Redefining \ref on input line 272.
-LaTeX Info: Redefining \pageref on input line 272.
-LaTeX Info: Redefining \nameref on input line 272.
+LaTeX Info: Redefining \ref on input line 273.
+LaTeX Info: Redefining \pageref on input line 273.
+LaTeX Info: Redefining \nameref on input line 273.
 
 (./SpIntPrimer.out) (./SpIntPrimer.out)
 \@outlinefile=\write4
 \openout4 = `SpIntPrimer.out'.
 
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 282.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 283.
 LaTeX Font Info:    Font shape `T1/ppl/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ppl/b/it' tried instead on input line 282.
-LaTeX Font Info:    Try loading font information for U+msa on input line 282.
+(Font)              Font shape `T1/ppl/b/it' tried instead on input line 283.
+LaTeX Font Info:    Try loading font information for U+msa on input line 283.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 282.
+LaTeX Font Info:    Try loading font information for U+msb on input line 283.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 285.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 289.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 303.
-LaTeX Font Info:    Try loading font information for TS1+ppl on input line 317.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 309.
+LaTeX Font Info:    Try loading font information for TS1+ppl on input line 323.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ts1ppl.fd
@@ -700,7 +721,7 @@ File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-./SpIntPrimer.tex:376: Package amsmath Error: Erroneous nesting of equation str
+./SpIntPrimer.tex:382: Package amsmath Error: Erroneous nesting of equation str
 uctures;
 (amsmath)                trying to recover with `aligned'.
 
@@ -708,12 +729,12 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.376 \end{align}
+l.382 \end{align}
                  
 ? 
 [2]
 
-./SpIntPrimer.tex:408: Package amsmath Error: Erroneous nesting of equation str
+./SpIntPrimer.tex:414: Package amsmath Error: Erroneous nesting of equation str
 uctures;
 (amsmath)                trying to recover with `aligned'.
 
@@ -721,24 +742,12 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.408 \end{align}
-                 
-? 
-
-./SpIntPrimer.tex:464: Package amsmath Error: Erroneous nesting of equation str
-uctures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.464 \end{align}
+l.414 \end{align}
                  
 ? 
 [3]
 
-./SpIntPrimer.tex:524: Package amsmath Error: Erroneous nesting of equation str
+./SpIntPrimer.tex:470: Package amsmath Error: Erroneous nesting of equation str
 uctures;
 (amsmath)                trying to recover with `aligned'.
 
@@ -746,36 +755,48 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.524 \end{align}
+l.470 \end{align}
                  
 ? 
-[4] [5]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 641.
+
+./SpIntPrimer.tex:530: Package amsmath Error: Erroneous nesting of equation str
+uctures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.530 \end{align}
+                 
+? 
+[4] [5] [6]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 644.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 642.
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 645.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 645.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 648.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-) [6]
-<SpIntPrimer_files/SpIntPrimer_13_2.png, id=92, 382.42876pt x 163.61125pt>
+)
+<SpIntPrimer_files/SpIntPrimer_13_2.png, id=153, 382.42876pt x 163.61125pt>
 File: SpIntPrimer_files/SpIntPrimer_13_2.png Graphic file (type png)
 
 <use SpIntPrimer_files/SpIntPrimer_13_2.png>
 Package pdftex.def Info: SpIntPrimer_files/SpIntPrimer_13_2.png used on input l
-ine 666.
+ine 669.
 (pdftex.def)             Requested size: 382.42781pt x 163.61084pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 668--669
+Underfull \hbox (badness 10000) in paragraph at lines 671--672
 
  []
 
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 670.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 673.
 [7 <./SpIntPrimer_files/SpIntPrimer_13_2.png>] [8] [9]
 Underfull \hbox (badness 10000) in paragraph at lines 878--884
 
@@ -795,67 +816,75 @@ Underfull \hbox (badness 10000) in paragraph at lines 878--884
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <10.95> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 997.
 
-<SpIntPrimer_files/SpIntPrimer_49_1.png, id=118, 382.42876pt x 256.96pt>
+<SpIntPrimer_files/SpIntPrimer_49_1.png, id=206, 382.42876pt x 256.96pt>
 File: SpIntPrimer_files/SpIntPrimer_49_1.png Graphic file (type png)
 
 <use SpIntPrimer_files/SpIntPrimer_49_1.png>
 Package pdftex.def Info: SpIntPrimer_files/SpIntPrimer_49_1.png used on input l
 ine 1017.
 (pdftex.def)             Requested size: 382.42781pt x 256.95937pt.
- [12 <./SpIntPrimer_files/SpIntPrimer_49_1.png>]
-<SpIntPrimer_files/SpIntPrimer_51_1.png, id=125, 382.42876pt x 256.96pt>
+ [12]
+<SpIntPrimer_files/SpIntPrimer_51_1.png, id=212, 382.42876pt x 256.96pt>
 File: SpIntPrimer_files/SpIntPrimer_51_1.png Graphic file (type png)
 
 <use SpIntPrimer_files/SpIntPrimer_51_1.png>
 Package pdftex.def Info: SpIntPrimer_files/SpIntPrimer_51_1.png used on input l
 ine 1038.
 (pdftex.def)             Requested size: 382.42781pt x 256.95937pt.
-
+ [13 <./SpIntPrimer_files/SpIntPrimer_49_1.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 1040--1041
 
  []
 
-[13 <./SpIntPrimer_files/SpIntPrimer_51_1.png>] [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1160.
- [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1160.
+(./SpIntPrimer.bbl [14 <./SpIntPrimer_files/SpIntPrimer_51_1.png>]
+(/usr/local/texlive/2014/texmf-dist/tex/latex/ucs/data/uni-32.def
+File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
+) [15])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1079.
+
+[16]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1079.
  (./SpIntPrimer.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1160.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1160.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1079.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1079.
 
 Package rerunfilecheck Info: File `SpIntPrimer.out' has not changed.
 (rerunfilecheck)             Checksum: DF2E2A038DC29F5879A11A1DB668C6BE;722.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1160.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1079.
  ) 
 Here is how much of TeX's memory you used:
- 10588 strings out of 493117
- 158180 string characters out of 6135433
- 264509 words of memory out of 5000000
- 13778 multiletter control sequences out of 15000+600000
- 33074 words of font info for 80 fonts, out of 8000000 for 9000
+ 11373 strings out of 493117
+ 169154 string characters out of 6135433
+ 271310 words of memory out of 5000000
+ 14538 multiletter control sequences out of 15000+600000
+ 34627 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,8n,38p,444b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local
-/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/
-texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texl
-ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texliv
-e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014/te
-xmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2014/texmf-dist
-/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/t
-ype1/urw/courier/ucrro8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/ur
-w/palatino/uplb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/palat
-ino/uplbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/palatino/up
-lr8a.pfb>
-Output written on SpIntPrimer.pdf (15 pages, 272797 bytes).
+ 36i,13n,38p,729b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
+st, replaced by a fixed one
+
+{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
+live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
+ive/2014/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/t
+exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
+xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texl
+ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texliv
+e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
+2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/201
+4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2014/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014/texmf-
+dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2014/texmf-dist/fon
+ts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
+/urw/courier/ucrro8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/pa
+latino/uplb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/palatino/
+uplbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/palatino/uplr8a
+.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on SpIntPrimer.pdf (16 pages, 302234 bytes).
 PDF statistics:
- 229 PDF objects out of 1000 (max. 8388607)
- 188 compressed objects within 2 object streams
- 54 named destinations out of 1000 (max. 500000)
+ 319 PDF objects out of 1000 (max. 8388607)
+ 274 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
  104 words of extra memory for PDF output out of 10000 (max. 10000000)
 

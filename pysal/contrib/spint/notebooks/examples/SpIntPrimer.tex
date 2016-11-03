@@ -16,7 +16,7 @@
 \documentclass[11pt]{article}
 
     
-    
+    \usepackage[authoryear]{natbib}
     \usepackage[T1]{fontenc}
     % Nicer default font than Computer Modern for most use cases
     \usepackage{palatino}
@@ -68,7 +68,7 @@
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
     
-
+\usepackage{authblk}
     
     
     % Colors for the hyperref package
@@ -267,8 +267,9 @@
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
     
-    
-
+\usepackage{titling}    
+%\setlength\thanksmarkwidth{.5em}
+%\setlength\thanksmargin{-\thanksmarkwidth}
     \begin{document}
     
     \title{\texorpdfstring{A primer for working with the
@@ -276,11 +277,14 @@
 module in the python spatial analysis library
 (PySAL)}{A primer for working with the Spatial Interaction modeling (SpInt) module in the python spatial analysis library (PySAL)}}\label{a-primer-for-working-with-the-spatial-interaction-modeling-spint-module-in-the-python-spatial-analysis-library-pysal}
 
-    \author{Taylor M. Oshan}
-    
+\author{Taylor Oshan\thanks{Email: toshan@asu.edu\\
+\hspace*{2.0em}Affiliation: School of Geographical Sciences and Urban Planning, Arizona StateUniversity}}
+
     \maketitle
     
-   
+
+
+
 
     \section{Introduction}\label{introduction}
 
@@ -291,12 +295,14 @@ fundamental technique to many geographic disciplines, there is relatively
 little software available to carry out spatial interaction modeling and
 the analysis of flow data, especially in the realm of free and open source software. Therefore, the purpose of this primer is to
 provide an overview of the recently developed spatial interaction
-modeling (SpInt) module of the python spatial analysis library (PySAL).
-First, the current framework of the module will be highlighted. Next,
+modeling (SpInt) module\footnote{This primer is based on the xx.xx.xx release of PySAL} of the python spatial analysis library (PySAL)\footnotemark. First, the current framework of the module will be highlighted. Next,
 the main functionality of the module will be illustrated using migration
 flows with a dataset previously used for spatial interaction modeling
-tutorials in the R programming environment (Dennett, 2012). Finally, some future
+tutorials in the R programming environment \citep{dennett_estimating_2012}. Finally, some future
 additions are discussed.
+
+\footnotetext{http://pysal.github.io/}
+
 
     \section{The SpInt framework}\label{the-spint-framework}
 
@@ -304,9 +310,9 @@ additions are discussed.
 
     The core purpose of the SpInt module is to provide the functionality to
 calibrate spatial interaction models. Since the ``family'' of spatial
-interaction models put forth by Wilson (Wilson, 1971) are perhaps the
+interaction models put forth by Wilson \citep{wilson_family_1971} are perhaps the
 most popular, they were chosen as the starting point of the module.
-Consider the basic gravity model (Fotheringham \& O'Kelly, 1989),
+Consider the basic gravity model \citep{fotheringham_spatial_1989},
 
 \[T_{ij} = k\frac{V_{i}^\mu W_{j}^\alpha}{d_{ij}^\beta} \quad(1)\]
 
@@ -335,7 +341,7 @@ where
   \(\alpha\) = a \(p \times 1\) vector of parameters representing the
   effect of \(p\) destination attributes on flows
 \item
-  \(\beta\) = an exponential parameter representing the effect of
+  \(\beta\) = a parameter representing the effect of
   movement costs on flows.
 \end{itemize}
 
@@ -348,8 +354,8 @@ to predict unknown flows when there are deviations in model components
 altered.
 
 Using an entropy-maximizing framework, Wilson derives a more informative
-and flexible ``family'' of four spatial interaction models (Wilson,
-1971). This framework seeks to assign flows between a set of origins and
+and flexible ``family'' of four spatial interaction models \citep{wilson_family_1971}.
+ This framework seeks to assign flows between a set of origins and
 destinations by finding the most probable configuration of flows out of
 all possible configurations, without making any additional assumptions.
 By using a common optimization problem and including information about
@@ -415,8 +421,8 @@ the unconstrained model with a power function distance-decay is
 equivalent to the basic gravity model in equation (2), except that the
 scaling factor, \(k\), is not included. In fact, there is no scaling
 factor in any of the members of the family of maximum entropy models
-because there is a total trip constrained implied in their derivation
-and subsequently their calibration (Fotheringham \& O'Kelly , 1989).
+because there is a total trip constraint implied in their derivation
+and subsequently their calibration \citep{fotheringham_spatial_1989}.
 Another aside is that in the doubly-constrained maximum entropy model,
 the values for \(A_{i}\) and \(B_{j}\) are dependent upon each other and
 may need to be computed iteratively depending on calibration technique.
@@ -441,7 +447,7 @@ the model's predictive power increases with higher quantities of
 built-in information (i.e.~total in or out-flows) so that the
 doubly-constrained model usually provides the most accurate predictions,
 followed by the two singly-constrained models, and the unconstrained
-model supplying the weakest predictions (Fotheringham \& O'Kelly, 1989).
+model supplying the weakest predictions \citep{fotheringham_spatial_1989}.
 
     \subsection{Calibration framework}\label{calibration-framework}
 
@@ -492,7 +498,7 @@ log-normal gravity model, which include,
 \end{enumerate}
 
 Therefore,  the Poisson log-linear
-regression specification for the family of spatial interaction models was proposed (Flowerdew \& Aitkin, 1982; Flowerdew \& Lovett, 1988).
+regression specification for the family of spatial interaction models was proposed \citetext{\citealp{flowerdew_method_1982}; \citealp{flowerdew_fitting_1988}}.
 This specification assumes that the number of flows between \(i\) and
 \(j\) is drawn from a Poisson distribution with mean,
 \(\lambda_{ij} = T_{ij}\), where \(\lambda_{ij}\) is assumed to be
@@ -507,7 +513,7 @@ Poisson log-linear gravity model,
 %
 where equations (9a) and (9b) refer to the unconstrained model with a
 power function distance-decay. As previously mentioned, using fixed
-effects for the balancing in equations (3-5) factors, the constrained
+effects for the balancing factors in equations (3-5), the constrained
 variants of the family of spatial interaction models can be specified
 as,
 
@@ -526,7 +532,7 @@ as,
 %
 where \(\mu_{i}\) are origin fixed effects and \(\alpha_{i}\) are
 destination fixed effects that achieve the same results as including
-balancing factors (Tiefelsdorf \& Boots, 1995). Notice that $k$ is the estimated intercept and must be included in these log-linear models (equation 8-12) to ensure the total number of flows is conserved despite not being included in the maximum entropy models where such conservation is implied. Similar to equation (8b) the exponential function
+balancing factors \citep{tiefelsdorf_specification_1995}. Notice that $k$ is the estimated intercept and must be included in these log-linear models (equation 8-12) to ensure the total number of flows is conserved, despite not being included in the maximum entropy models where such conservation is implied. Similar to equation (8b), the exponential function
 distance-decay can be specified in equation (9b, 10-12) by omitting the
 logarithm associated with \(d_{ij}\). Using Poisson regression is more
 representative of flows and satisfies limitations (1-2) and it also
@@ -534,12 +540,12 @@ alleviates limitations (3-4) since we no longer need to take the
 logarithm of \(T_{ij}\). Using fixed effects within Poisson regression
 to calibrate the doubly-constrained model also avoids the need for
 iterative computation of the balancing factors that exists in other
-calibration methods (Fotheringham \& O'Kelly, 1989).
+calibration methods \citep{fotheringham_spatial_1989}.
 
 Calibration of Poisson regression can be carried out within a
 generalized linear modeling framework (GLM) using iteratively weighted
 least squares (IWSL), which converges to the maximum likelihood
-estimates for the parameter estimates (Nelder \& Wedderburn, 1972). To
+estimates for the parameter estimates \citep{nelder_generalized_1972}. To
 maintain computational efficiency with increasingly larger spatial
 interaction datasets, SpInt is built upon a custom GLM/IWLS routine that
 leverages sparse data structures for the production-constrained,
@@ -547,7 +553,7 @@ attraction-constrained, and doubly-constrained models. As the number of
 locations in these models increases, so the does the number of binary
 indicator variables needed to construct the fixed effects that enforce
 the constraints. Therefore, larger spatial interaction datasets become
-increasingly sparse and the utilization of sparse data structures take
+increasingly sparse and the utilization of sparse data structures takes
 advantage of this feature. As a metric, constrained models with
 \(n = m = 3,000\) locations, which implies \(n*m = n^2 = 9,000,000\)
 observed flows when each location is an origin and destination, can be
@@ -556,13 +562,12 @@ calibrated within minutes on a standard macbook pro notebook.
     \subsection{Model fit statistics}\label{model-fit-statistics}
 
     In order to evaluate the fit of spatial interaction models, it has been
-recommended that a variety of statistics be used (Knudsen \&
-Fotheringham, 1986), which is the approach taken in SpInt. For the
+recommended that a variety of statistics be used \citep{knudsen_matrix_1986}, which is the approach taken in SpInt. For the
 log-normal regression specification, it is popular to utilize the
 coefficient of determination (\(R^2\)), though this statistic is not
 available within the GLM framework used by SpInt. In replacement of the
 \(R^2\) statistic, the SpInt framework provides a pseudo \(R^2\) based
-on the likelihood function (McFadden, 1974),
+on the likelihood function \citep{mcfadden_conditional_1974},
 %
 \[R^2_{pseudo} = 1 - \frac{\ln \hat{L}(M_{full})}{\ln \hat{L}(M_{Intercept})} \quad(13)\]
 %
@@ -587,7 +592,7 @@ accounts for model complexity is the the Akaike information criterion
 %
 \[ AIC = -2\ln \hat{L}(M_{full}) + 2K  \quad(15)\]
 %
-where lower AIC values indicate a better model fit (Akaike, 1974). This
+where lower AIC values indicate a better model fit \citep{akaike_new_1974}. This
 statistic is grounded in information theory, whereby the AIC is an
 asymptotic estimate of the information that is lost by using the full
 model to represent a given theoretical process.
@@ -607,13 +612,12 @@ is the number of origin-destination pairs that constitute the system of
 flows. A SRMSE value of 0 indicates perfect model fit, while higher
 values indicate decreasing model fit; however, the upper limit of the
 statistic is not necessarily 1 and will depend on the distribution of
-the observed values (Knudsen \& Fotheringham, 1986).
+the observed values \citep{knudsen_matrix_1986}.
 
 One final fit statistic, a modified Sorensen similarity index (SSI), is
 included within the SpInt module because it has become increasingly
 popular in some spatial interaction literature that deals with
-non-parametric models (Lenormand et al., 2012; Massuci et al., 2012; Yan
-et al., 2013). Using the same symbol definition from the SRMSE, the SSI
+non-parametric models \citetext{\citealp{lenormand_universal_2012}; \citealp{masucci_gravity_2012}; \citealp{yan_universal_2013}}. Using the same symbol definition from the SRMSE, the SSI
 is defined as,
 %
 \[ SSI = \frac{1}{(n*m)} \sum_{i} \sum_{j} \frac{2min(T_{ij}, \hat{T}_{ij})}{T_{ij} + \hat{T}_{ij}} \quad(17)\]
@@ -628,14 +632,13 @@ Austria}\label{an-illustrative-example-migration-in-austria}
 
     Despite being a small toy dataset, the following example is utilized for
 consistency since it was previously used to demonstrate spatial
-interaction modeling in the R programming language (Dennett, 2012). The
+interaction modeling in the R programming language \citep{dennett_estimating_2012}. The
 data are migration flows between Austrian NUTS level 2 municipalities in
 2006. In order to use a regression-based calibration, the data has to be
 transformed from the matrices and vectors described in equations (1-5)
 to a table where each row represents a single origin-destination dyad,
 \((i,j)\) and any variables associated with locations \(i\) and \(j\).
-Details on how to do this are outlined further in (LeSage \& Pace,
-2008), though this has already been done in the example data. Let's have
+Details on how to do this are outlined further in \citep{lesage_spatial_2008}, though this has already been done in the example data. Let's have
 a look!
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -689,16 +692,15 @@ Next, lets format the data into arrays.
         \PY{n}{Destination} \PY{o}{=} \PY{n}{austria}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Destination}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
 \end{Verbatim}
 
-    The Oi and Dj vectors need not be \(n^2 \times 1\) vectors. In fact,
+    The Oi and Dj vectors need not be \(n^2 \times 1\) arrays. In fact,
 they can be \(n^2 \times k\) where \(k\) is the number of variables that
-are either being used to describe origin or destination attributes
+are being used to describe either origin or destination attributes
 associated with flows. It should also be noted that intra-zonal flows
 have been excluded (the first line of code above). This is sometimes
 done because intra-zonal flows are large compared to inter-zonal flows
 and would therefore heavily influence the model or because it is not
 possible to adequately define a distance associated with intra-zonal
-flows. Some solutions to these issues have been proposed (Kordi et al.,
-2012; Tsutsumi \& Tamesue, 2012), though for simplicity, intra-zonal
+flows. Some solutions to these issues have been proposed \citetext{\citealp{kordi_possible_2012}; \citealp{tsutsumi_intraregional_2011}}, though for simplicity, intra-zonal
 were removed for this example. 
 
     \subsection{Calibrating the models}\label{calibrating-the-models}
@@ -764,8 +766,7 @@ interaction model.
 
     \end{Verbatim}
 %
-Note that for the above examples the constrained models have been limited the params
-attribute to print only the main model variables (i.e., not fixed
+Note that for the above examples the print statement for the constrained models params attribute is limited to print only the main model variables (i.e., not fixed
 effects), though it is still possible to access the fixed effect
 parameters too.
 
@@ -792,7 +793,7 @@ to the \(n\)th municipality that has been left out. In Spint, this is
 always the first origin or destination for the production-constrained
 and attraction-constrained models. For the doubly-constrained model,
 both the first origin and the first destination are left out
-(Tiefelsdorf \& Boots, 1995). In terms of interpreting the parameters,
+\citep{tiefelsdorf_specification_1995}. In terms of interpreting the parameters,
 these dropped locations are assumed to be 0. 
 
 You can also access typical model diagnostics, such as standard errors (\textbf{std\_err}), $t$-values (\textbf{tvalues}), $p$-values (\textbf{pvalues}), and confidence intervals (\textbf{cont\_int}).
@@ -830,8 +831,7 @@ interpretation of coefficients from a Poisson regression.
 -6.22938370e-03 is the coefficient for the distance variable in the
 above example. In Poisson regression, the coefficients are typically
 interpreted as the proportionate change in the predicted response, here
-\(T_{ij}\), if we increase an explanatory variable by 1 unit (Cameron \&
-Trivedi, 2013). Technically, this is expressed as,
+\(T_{ij}\), if we increase an explanatory variable by 1 unit \citep{cameron_regression_2013}. Technically, this is expressed as,
 %
 \[ \tilde{T}_{ij} = T_{ij}* \exp(\beta) \quad (18)\]
 %
@@ -839,7 +839,7 @@ where \(\tilde{T}_{ij}\) is the new value of \(T_{ij}\) and \(\beta\) is
 a coefficient, here the one typically associated with distance in a
 Poisson log-linear spatial interaction model with an exponential
 function distance-decay. For this example, this means from a 1 unit
-increase in distance holding all other factors constant, if our model predicted 2,500 flows, then we can
+increase in distance, holding all other factors constant, if our model predicted 2,500 flows, then we can
 expect the number of flows to decrease to approximately 2,484.475. We
 can also identify the percent change expected from a one unit increase
 in distance using,
@@ -858,19 +858,19 @@ exponential function of distance-decay and to the origin, destination,
 and distance variables when using a power function of distance-decay. In
 these cases, the interpretation of the coefficients becomes the percent
 change in the predicted response, here \(T_{ij}\), if we increase the
-associated explanatory variable by 1\% (Cameron \& Trivedi, 2013). For
+associated explanatory variable by 1\% \citep{cameron_regression_2013}. For
 example, 8.91445153e-01 is the coefficient associated with destination
 total in-flows (i.e., attractiveness) in the above example. Then if we
 increase the in-flows to location \(j\) by 1\%, say from \(25,000\) to
 \(25,250\), and holding all other factors constant, we can expect the number of flows from \(i\) to \(j\) (i.e.,
 \(T_{ij}\)) to increase from \(2,000\) to \(2,020\).\footnotemark
 
-\footnotetext{This example is only illustrative. Of course, if we increased the total in-flows, this would imply that we are also increasing the total out-flows from somewhere else and therefore the system could not truly be held constant. However, substantive modeling calls for origin and destination variables that are not derived from the interaction matrix. Therefore, this is not an issue in practice.}
+\footnotetext{This example is only illustrative. Of course, if we increased the total in-flows, this would imply that we are also increasing the total out-flows from somewhere else and therefore the system could not truly be held constant. However, substantive modeling calls for origin and destination variables that are not derived from the interaction matrix. Therefore, this is not an issue in practice when there is the assumption of independence between flows. However, it has been hypothesized that flows may not be independent and therefore more accurate estimates can be obtained using more advanced methods \citetext{\citealp{lesage_spatial_2008}; \citealp{chun_modeling_2008}}.}
 
 Finally, the fixed effects in the constrained models can be interpreted
 such that the mean predicted flows, \(T_{ij}\), are \(e^{\mu_{i}}\)
 (\(e^{\alpha_{j}}\)) times larger if they originate (terminate) from
-location \(i\) (location \(j\)) (Cameron \& Trivedi, 2013), where
+location \(i\) (location \(j\)) \citep{cameron_regression_2013}, where
 \(e^{\mu_{i}}\) is equivalent notation for \(\exp(\mu_{i})\).
 
     \subsection{Assessing model fit}\label{assessing-model-fit}
@@ -949,9 +949,9 @@ results in a better model fit.
     The SpInt module also makes it possible to calibrate ``local'' models,
 which subset the data by specific origins or destinations in order o
 investigate how spatial interaction processes vary over space
-(Fotheringham \& Brundson, 1999). Below is an example of how to get
+\citep{fotheringham_local_1999}. Below is an example of how to get
 local parameters and local diagnostics for a gravity model subset by its
-origins. The result is a dictionary of lists where they keys are the
+origins. The result is a dictionary of lists where the keys are the
 different sets of local values including parameters, hypothesis testing
 diagnostics, and the previously reviewed fit statistics.
 
@@ -1051,8 +1051,7 @@ If these tests indicate overdispersion or underdispersion, then it might
 be appropriate to use a Quasi-Poisson model, which relaxes the
 equidispersion assumption of the Poisson model. The resulting parameter
 estimates are equivalent to the Poisson model, but the standard errors
-are typically larger whenever equidispersion does not hold (Wedderburn,
-1974). The Quasi-Poisson model specification can be carried out by
+are typically larger whenever equidispersion does not hold \citep{wedderburn_quasi-likelihood_1974}. The Quasi-Poisson model specification can be carried out by
 setting \textbf{Quasi=True} in any of the spatial interaction models introduced here. Alternatively, it might be more appropriate to change the
 underlying probability model from Poisson to that of negative binomial
 or a zero-inflated model. However, this has not yet been implemented in
@@ -1060,100 +1059,20 @@ SpInt and therefore remains as future work.
 
 Another area of potential expansion is to accommodate several paradigms for
 incorporating spatial effects into spatial interaction models, such as
-competing destinations (Fotheringham, 1983), a spatial lag
-autoregressive model (LeSage \& Pace, 2008), or an eigenvector spatial
-filter model (Chun, 2009). These paradigms require code that computes
+competing destinations \citep{fotheringham_new_1983}, a spatial lag
+autoregressive model \citep{lesage_spatial_2008}, or an eigenvector spatial
+filter model \citep{chun_modeling_2008}. These paradigms require code that computes
 additional variables, more complex calibration techniques, and specialized
 representations of spatial relationships. Some solutions to the
 latter are available in the \textbf{spintW} namespace of the
 \textbf{weights} module of PySAL. While there is still much work to be done to
 develop a more robust set of open source spatial interaction modeling tools, SpInt provides a starting point for which to build upon.
 
-    \section*{References}\label{references}
-
-    \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Akaike, Hirotugu. 1974. ``A New Look at the Statistical Model
-  Identification.'' Automatic Control, IEEE Transactions on 19 (6):
-  716--23.
-\item
-  Chun, Yongwan. 2008. ``Modeling Network Autocorrelation within
-  Migration Flows by Eigenvector Spatial Filtering.'' Journal of
-  Geographical Systems 10 (4): 317--44.
-\item
-  Dennett, Adam. 2012. ``Estimating Flows between Geographical
-  Locations:`get Me Started In'spatial Interaction Modelling.'' Working
-  Paper 184. CASA Working Paper Series. UCL: Citeseer.
-\item
-  Flowerdew, Robin, and Murray Aitkin. 1982. ``A Method of Fitting the
-  Gravity Model Based on the Poisson Distribution.'' Journal of Regional
-  Science 22 (2): 191--202.
-\item
-Flowerdew, Robin, and Andrew Lovett. 1988. ?Fitting Constrained Poisson Regression Models to Interurban Migration Flows.? Geographical Analysis 20 (4): 297?307. 
-\item
-  Fotheringham, A. S. 1983. ``A New Set of Spatial-Interaction Models:
-  The Theory of Competing Destinations.'' Environment and Planning A 15
-  (1): 15--36.
-\item
-  Fotheringham, A. S., and M. E. O'Kelly. 1989. Spatial Interaction
-  Models:Formulations and Applications. London: Kluwer Academic
-  Publishers.
-\item
-  Fotheringham, A. Stewart, and Chris Brunsdon. 1999. ``Local Forms of
-  Spatial Analysis.'' Geographical Analysis 31 (4): 340--58.
-\item
-  Knudsen, D.C., and A.S. Fotheringham. 1986. ``Matrix Comparison,
-  Goodness-of-Fit, and Spatial Interaction Modeling.'' International
-  Regional Science Review 10: 127--47.
-\item
-  Kordi, Maryam, Christian Kaiser, and A. Stewart Fotheringham. 2012.
-  ``A Possible Solution for the Centroid-to-Centroid and Intra-Zonal
-  Trip Length Problems.'' In International Conference on Geographic
-  Information Science, Avignon.
-\item
-  Lenormand, Maxime, Sylvie Huet, Floriana Gargiulo, and Guillaume
-  Deffuant. 2012. ``A Universal Model of Commuting Networks.'' PLoS ONE
-  7 (10): e45985.
-\item
-  LeSage, James P., and R. Kelley Pace. 2008. ``Spatial Econometric
-  Modeling Of Origin-Destination Flows.'' Journal of Regional Science 48
-  (5): 941--67.
-\item
-  Masucci, A. P., J. Serras, A. Johansson, and M. Batty. 2012. ``Gravity
-  vs Radiation Model: On the Importance of Scale and Heterogeneity in
-  Commuting Flows.'' arXiv:1206.5735 {[}physics{]}, June.
-\item
-  McFadden, Daniel. 1974. ``Conditional Logit Analysis of Qualitative
-  Choice Behavior.'' In Frontiers in Econometrics, 105--42. New York:
-  Academic Press.
-\item
-  Nelder, J. A., and R. W. M. Wedderburn. 1972. ``Generalized Linear
-  Models.'' Journal of the Royal Statistical Society. Series A (General)
-  135 (3): 370--84.
-\item
-  Tiefelsdorf, M, and B Boots. 1995. ``The Specification of Constrained
-  Interaction Models Using the SPSS Loglinear Procedure.'' Geographical
-  Systems 2: 21--38.
-\item
-  Tsutsumi, Morito, and Kazuki Tamesue. 2012. ``Intraregional Flow
-  Problem in Spatial Econometric Model for Origin--destination Flows.''
-  Environment and Planning B: Planning and Design 39 (6): 1006--15.
-\item
-  Wedderburn, R. W. M. 1974. ``Quasi-Likelihood Functions, Generalized
-  Linear Models, and the Gauss-Newton Method.'' Biometrika 61 (3):
-  439--47. doi:10.2307/2334725.
-\item
-  Wilson, A. G. 1971. ``A Family of Spatial Interaction Models, and
-  Associated Developments.'' Environment and Planning A 3: 1--32.
-\item
-  Yan, Xiao-Yong, Chen Zhao, Ying Fan, Zengru Di, and Wen-Xu Wang. 2013.
-  ``Universal Predictability of Mobility Patterns in Cities.''
-  arXiv:1307.7502 {[}physics{]}, July.
-\end{enumerate}
 
 
     % Add a bibliography block to the postdoc
+    \bibliography{primer}
+    \bibliographystyle{apa}
     
     
     

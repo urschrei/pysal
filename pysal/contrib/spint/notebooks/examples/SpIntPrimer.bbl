@@ -1,0 +1,134 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\astroncite{Akaike}{1974}]{akaike_new_1974}
+Akaike, H. (1974).
+\newblock A new look at the statistical model identification.
+\newblock {\em Automatic Control, IEEE Transactions on}, 19(6):716--723.
+
+\bibitem[\protect\astroncite{Cameron and
+  Trivedi}{2013}]{cameron_regression_2013}
+Cameron, A.~C. and Trivedi, P.~K. (2013).
+\newblock {\em Regression {Analysis} of {Count} {Data}}.
+\newblock Cambridge University Press, New York.
+
+\bibitem[\protect\astroncite{Chun}{2008}]{chun_modeling_2008}
+Chun, Y. (2008).
+\newblock Modeling network autocorrelation within migration flows by
+  eigenvector spatial filtering.
+\newblock {\em Journal of Geographical Systems}, 10(4):317--344.
+
+\bibitem[\protect\astroncite{Dennett}{2012}]{dennett_estimating_2012}
+Dennett, A. (2012).
+\newblock Estimating flows between geographical locations:‘get me started
+  in’spatial interaction modelling.
+\newblock Working {Paper} 184, Citeseer, UCL.
+
+\bibitem[\protect\astroncite{Flowerdew and
+  Aitkin}{1982}]{flowerdew_method_1982}
+Flowerdew, R. and Aitkin, M. (1982).
+\newblock A {Method} of {Fitting} the {Gravity} {Model} {Based} on the
+  {Poisson} {Distribution}.
+\newblock {\em Journal of Regional Science}, 22(2):191--202.
+
+\bibitem[\protect\astroncite{Flowerdew and
+  Lovett}{1988}]{flowerdew_fitting_1988}
+Flowerdew, R. and Lovett, A. (1988).
+\newblock Fitting {Constrained} {Poisson} {Regression} {Models} to {Interurban}
+  {Migration} {Flows}.
+\newblock {\em Geographical Analysis}, 20(4):297--307.
+
+\bibitem[\protect\astroncite{Fotheringham}{1983}]{fotheringham_new_1983}
+Fotheringham, A.~S. (1983).
+\newblock A new set of spatial-interaction models: the theory of competing
+  destinations.
+\newblock {\em Environment and Planning A}, 15(1):15--36.
+
+\bibitem[\protect\astroncite{Fotheringham and
+  Brunsdon}{1999}]{fotheringham_local_1999}
+Fotheringham, A.~S. and Brunsdon, C. (1999).
+\newblock Local {Forms} of {Spatial} {Analysis}.
+\newblock {\em Geographical Analysis}, 31(4):340--358.
+
+\bibitem[\protect\astroncite{Fotheringham and
+  O'Kelly}{1989}]{fotheringham_spatial_1989}
+Fotheringham, A.~S. and O'Kelly, M.~E. (1989).
+\newblock {\em Spatial {Interaction} {Models}:{Formulations} and
+  {Applications}}.
+\newblock Kluwer Academic Publishers, London.
+
+\bibitem[\protect\astroncite{Knudsen and
+  Fotheringham}{1986}]{knudsen_matrix_1986}
+Knudsen, D. and Fotheringham, A. (1986).
+\newblock Matrix comparison, {Goodness}-of-fit, and spatial interaction
+  modeling.
+\newblock {\em International Regional Science Review}, 10:127--147.
+
+\bibitem[\protect\astroncite{Kordi et~al.}{2012}]{kordi_possible_2012}
+Kordi, M., Kaiser, C., and Fotheringham, A.~S. (2012).
+\newblock A possible solution for the centroid-to-centroid and intra-zonal trip
+  length problems.
+\newblock In {\em International {Conference} on {Geographic} {Information}
+  {Science}, {Avignon}}.
+
+\bibitem[\protect\astroncite{Lenormand et~al.}{2012}]{lenormand_universal_2012}
+Lenormand, M., Huet, S., Gargiulo, F., and Deffuant, G. (2012).
+\newblock A {Universal} {Model} of {Commuting} {Networks}.
+\newblock {\em PLoS ONE}, 7(10):e45985.
+
+\bibitem[\protect\astroncite{LeSage and Pace}{2008}]{lesage_spatial_2008}
+LeSage, J.~P. and Pace, R.~K. (2008).
+\newblock Spatial {Econometric} {Modeling} {Of} {Origin}-{Destination} {Flows}.
+\newblock {\em Journal of Regional Science}, 48(5):941--967.
+
+\bibitem[\protect\astroncite{Masucci et~al.}{2012}]{masucci_gravity_2012}
+Masucci, A.~P., Serras, J., Johansson, A., and Batty, M. (2012).
+\newblock Gravity vs radiation model: on the importance of scale and
+  heterogeneity in commuting flows.
+\newblock {\em arXiv:1206.5735 [physics]}.
+\newblock arXiv: 1206.5735.
+
+\bibitem[\protect\astroncite{McFadden}{1974}]{mcfadden_conditional_1974}
+McFadden, D. (1974).
+\newblock Conditional logit analysis of qualitative choice behavior.
+\newblock In {\em Frontiers in {Econometrics}}, pages 105--142. Academic Press,
+  New York.
+
+\bibitem[\protect\astroncite{Nelder and
+  Wedderburn}{1972}]{nelder_generalized_1972}
+Nelder, J.~A. and Wedderburn, R. W.~M. (1972).
+\newblock Generalized {Linear} {Models}.
+\newblock {\em Journal of the Royal Statistical Society. Series A (General)},
+  135(3):370--384.
+
+\bibitem[\protect\astroncite{Tiefelsdorf and
+  Boots}{1995}]{tiefelsdorf_specification_1995}
+Tiefelsdorf, M. and Boots, B. (1995).
+\newblock The specification of constrained interaction models using the {SPSS}
+  loglinear procedure.
+\newblock {\em Geographical Systems}, 2:21--38.
+
+\bibitem[\protect\astroncite{Tsutsumi and
+  Tamesue}{2011}]{tsutsumi_intraregional_2011}
+Tsutsumi, M. and Tamesue, K. (2011).
+\newblock Intraregional {Flow} {Problem} in {Spatial} {Econometric} {Model} for
+  {Origin}-destination {Flows}.
+\newblock {\em Procedia - Social and Behavioral Sciences}, 21:184--192.
+
+\bibitem[\protect\astroncite{Wedderburn}{1974}]{wedderburn_quasi-likelihood_1974}
+Wedderburn, R. W.~M. (1974).
+\newblock Quasi-{Likelihood} {Functions}, {Generalized} {Linear} {Models}, and
+  the {Gauss}-{Newton} {Method}.
+\newblock {\em Biometrika}, 61(3):439--447.
+
+\bibitem[\protect\astroncite{Wilson}{1971}]{wilson_family_1971}
+Wilson, A.~G. (1971).
+\newblock A family of spatial interaction models, and associated developments.
+\newblock {\em Environment and Planning A}, 3:1--32.
+
+\bibitem[\protect\astroncite{Yan et~al.}{2013}]{yan_universal_2013}
+Yan, X.-Y., Zhao, C., Fan, Y., Di, Z., and Wang, W.-X. (2013).
+\newblock Universal {Predictability} of {Mobility} {Patterns} in {Cities}.
+\newblock {\em arXiv:1307.7502 [physics]}.
+\newblock arXiv: 1307.7502.
+
+\end{thebibliography}

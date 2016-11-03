@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: SpIntPrimer.aux
+The style file: apa.bst
+Database file #1: primer.bib
+You've used 21 entries,
+            1940 wiz_defined-function locations,
+            604 strings with 7215 characters,
+and the built_in function-call counts, 8073 in all, are:
+= -- 808
+> -- 271
+< -- 19
++ -- 100
+- -- 86
+* -- 709
+:= -- 1390
+add.period$ -- 66
+call.type$ -- 21
+change.case$ -- 146
+chr.to.int$ -- 21
+cite$ -- 21
+duplicate$ -- 307
+empty$ -- 586
+format.name$ -- 127
+if$ -- 1561
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 22
+newline$ -- 110
+num.names$ -- 63
+pop$ -- 110
+preamble$ -- 1
+purify$ -- 148
+quote$ -- 0
+skip$ -- 233
+stack$ -- 0
+substring$ -- 620
+swap$ -- 51
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 122
+warning$ -- 0
+while$ -- 72
+width$ -- 0
+write$ -- 279
