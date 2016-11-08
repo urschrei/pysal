@@ -295,7 +295,7 @@ fundamental technique to many geographic disciplines, there is relatively
 little software available to carry out spatial interaction modeling and
 the analysis of flow data, especially in the realm of free and open source software. Therefore, the purpose of this primer is to
 provide an overview of the recently developed spatial interaction
-modeling (SpInt) module\footnote{This primer is based on the xx.xx.xx release of PySAL} of the python spatial analysis library (PySAL)\footnotemark. First, the current framework of the module will be highlighted. Next,
+modeling (SpInt) module\footnote{This primer is based on the 1.12.1 release of PySAL. For up-to-date code examples and namespaces, it is recommended to consult the documentation pertaining to the latest version of PySAL} of the python spatial analysis library (PySAL)\footnotemark. First, the current framework of the module will be highlighted. Next,
 the main functionality of the module will be illustrated using migration
 flows with a dataset previously used for spatial interaction modeling
 tutorials in the R programming environment \citep{dennett_estimating_2012}. Finally, some future
@@ -865,7 +865,7 @@ increase the in-flows to location \(j\) by 1\%, say from \(25,000\) to
 \(25,250\), and holding all other factors constant, we can expect the number of flows from \(i\) to \(j\) (i.e.,
 \(T_{ij}\)) to increase from \(2,000\) to \(2,020\).\footnotemark
 
-\footnotetext{This example is only illustrative. Of course, if we increased the total in-flows, this would imply that we are also increasing the total out-flows from somewhere else and therefore the system could not truly be held constant. However, substantive modeling calls for origin and destination variables that are not derived from the interaction matrix. Therefore, this is not an issue in practice when there is the assumption of independence between flows. However, it has been hypothesized that flows may not be independent and therefore more accurate estimates can be obtained using more advanced methods \citetext{\citealp{lesage_spatial_2008}; \citealp{chun_modeling_2008}}.}
+\footnotetext{This example is only illustrative. Of course, if we increased the total in-flows, this would imply that we are also increasing the total out-flows from somewhere else and therefore the system could not truly be held constant. However, substantive modeling calls for origin and destination variables that are not derived from the interaction matrix. Therefore, this is not an issue in practice when there is the assumption of independence between flows. It should also be noted that it has been hypothesized that flows may not be independent and therefore more accurate estimates can be obtained using more advanced methods \citetext{\citealp{lesage_spatial_2008}; \citealp{chun_modeling_2008}}.}
 
 Finally, the fixed effects in the constrained models can be interpreted
 such that the mean predicted flows, \(T_{ij}\), are \(e^{\mu_{i}}\)
