@@ -85,9 +85,10 @@ class Sel_BW(object):
     ________
 
     >>> import pysal
+    >>> import numpy as np
     >>> from pysal.contrib.gwr.sel_bw import Sel_BW
     >>> data = pysal.open(pysal.examples.get_path('GData_utm.csv'))
-    >>> coords = zip(data.bycol('X'), data.by_col('Y')) 
+    >>> coords = zip(data.by_col('X'), data.by_col('Y')) 
     >>> y = np.array(data.by_col('PctBach')).reshape((-1,1))
     >>> rural = np.array(data.by_col('PctRural')).reshape((-1,1))
     >>> pov = np.array(data.by_col('PctPov')).reshape((-1,1))
@@ -139,8 +140,8 @@ class Sel_BW(object):
             self.offset = offset * 1.0
         self.constant = constant
 
-    def search(self, search='golden_section', criterion='AICc', bw_min=0.0,
-            bw_max=0.0, interval=0.0, tol=1.0e-6, max_iter=200):
+    def search(self, search='golden_section', criterion='AICc', bw_min=None,
+            bw_max=None, init_bw_min=None, interval=0.0, tol=1.0e-6, max_iter=200):
         """
         Parameters
         ----------
@@ -152,6 +153,12 @@ class Sel_BW(object):
                          min value used in bandwidth search
         bw_max         : float
                          max value used in bandwidth search
+        init_bw_min    : float
+                         inital minimum value used in golden section search value; 
+                         setting this value trumps bw_min argument a algorithm used 
+                         to generate an default initial bw; this
+                         is suggested for smaller sample sizes and especially
+                         for the adaptive bandwidth spec
         interval       : float
                          interval increment used in interval search
         tol            : float
@@ -168,6 +175,7 @@ class Sel_BW(object):
         self.criterion = criterion
         self.bw_min = bw_min
         self.bw_max = bw_max
+        self.init_bw_min = init_bw_min
         self.interval = interval
         self.tol = tol
         self.max_iter = max_iter
@@ -248,9 +256,17 @@ class Sel_BW(object):
             max_dists = sort_dists[:,-1]
             a = np.min(min_dists)/2.0
             c = np.max(max_dists)/2.0
+        
+        if self.init_bw_min is not None:
+            if self.init_bw_min == 0.0:
+            	raise ValueError('init_bw_min must be greater than 0')
+            else:
+        	    a = self.init_bw_min
+        else:
+            if (self.bw_min is not None) & (a < self.bw_min):
+                a = self.bw_min
 
-        if a < self.bw_min:
-            a = self.bw_min
-        if c > self.bw_max and self.bw_max > 0:
+        if (self.bw_max is not None) & (c > self.bw_max):
             c = self.bw_max
+        
         return a, c
